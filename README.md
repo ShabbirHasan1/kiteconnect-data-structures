@@ -1,7 +1,7 @@
 # KiteConnect Data Structures
 Having a JSON schema from [kiteconnect-mocks](https://github.com/zerodha/kiteconnect-mocks) sample `.json` files, is a standard way to generate Data Class / Structs / Class Object code for serializing and deserializing the kiteconnect responses `.json` into the language of user choice.
 
-In Context of the same, have generated and added the [JSON schema](https://github.com/ShabbirHasan1/kiteconnect-mocks/tree/schemas/JsonSchemaAndStructs/KiteConnect-Json-Schema) from [kiteconnect-mocks](https://github.com/zerodha/kiteconnect-mocks) sample `.json` files and subsequently from the Json Schema, generated, [Some Languages Data Class / Structs / Class Object code](https://github.com/ShabbirHasan1/kiteconnect-mocks/tree/schemas/JsonSchemaAndStructs) for serializing and deserializing the kiteconnect responses `.json`.
+In Context of the same, have generated and added the [JSON schema](https://github.com/ShabbirHasan1/kiteconnect-data-structures/tree/main/JsonSchemaAndStructs/KiteConnect-Json-Schema) from [kiteconnect-mocks](https://github.com/zerodha/kiteconnect-mocks) sample `.json` files and subsequently from the Json Schema, generated, [Some Languages Data Class / Structs / Class Object code](https://github.com/ShabbirHasan1/kiteconnect-data-structures/tree/main/JsonSchemaAndStructs) for serializing and deserializing the kiteconnect responses `.json`.
 
 Example for Python
 
