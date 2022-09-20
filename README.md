@@ -3,8 +3,6 @@ Having a JSON schema from [kiteconnect-mocks](https://github.com/zerodha/kitecon
 
 In Context of the same, have generated and added the [JSON schema](https://github.com/ShabbirHasan1/kiteconnect-mocks/tree/schemas/JsonSchemaAndStructs/KiteConnect-Json-Schema) from [kiteconnect-mocks](https://github.com/zerodha/kiteconnect-mocks) sample `.json` files and subsequently from the Json Schema, generated, [Some Languages Data Class / Structs / Class Object code](https://github.com/ShabbirHasan1/kiteconnect-mocks/tree/schemas/JsonSchemaAndStructs) for serializing and deserializing the kiteconnect responses `.json`.
 
-Request you to kindly review and look for a possibility to include these files, which can be of benefit to everyone. Thank You.
-
 Example for Python
 
 ```python
