@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/ConvertPosition",
+    "definitions": {
+        "ConvertPosition": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "boolean"
+                }
+            },
+            "required": [],
+            "title": "ConvertPosition"
+        }
+    }
+}

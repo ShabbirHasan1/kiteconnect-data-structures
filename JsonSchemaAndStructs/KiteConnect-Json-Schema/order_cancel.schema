@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/OrderCancel",
+    "definitions": {
+        "OrderCancel": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "OrderCancel"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "order_id": {
+                    "type": "string"
+                }
+            },
+            "required": [],
+            "title": "Data"
+        }
+    }
+}

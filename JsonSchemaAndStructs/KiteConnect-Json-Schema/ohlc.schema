@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Ohlc",
+    "definitions": {
+        "Ohlc": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Ohlc"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "instrument_token": {
+                    "type": "integer"
+                },
+                "last_price": {
+                    "type": "integer"
+                },
+                "ohlc": {
+                    "$ref": "#/definitions/OhlcClass"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        },
+        "OhlcClass": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "open": {
+                    "type": "number"
+                },
+                "high": {
+                    "type": "number"
+                },
+                "low": {
+                    "type": "number"
+                },
+                "close": {
+                    "type": "number"
+                }
+            },
+            "required": [],
+            "title": "OhlcClass"
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/MFSIPModify",
+    "definitions": {
+        "MFSIPModify": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "MFSIPModify"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "sip_id": {
+                    "type": "string"
+                }
+            },
+            "required": [],
+            "title": "Data"
+        }
+    }
+}

@@ -1,0 +1,105 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/MFSIPInfo",
+    "definitions": {
+        "MFSIPInfo": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "MFSIPInfo"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "sip_reg_num": {
+                    "type": "null"
+                },
+                "pending_instalments": {
+                    "type": "integer"
+                },
+                "created": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "step_up": {
+                    "$ref": "#/definitions/StepUp"
+                },
+                "dividend_type": {
+                    "type": "string"
+                },
+                "instalment_amount": {
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
+                },
+                "instalments": {
+                    "type": "integer"
+                },
+                "next_instalment": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
+                "trigger_price": {
+                    "type": "integer"
+                },
+                "fund": {
+                    "type": "string"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "frequency": {
+                    "type": "string"
+                },
+                "last_instalment": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "instalment_day": {
+                    "type": "integer"
+                },
+                "sip_type": {
+                    "type": "string"
+                },
+                "fund_source": {
+                    "type": "string"
+                },
+                "completed_instalments": {
+                    "type": "integer"
+                },
+                "sip_id": {
+                    "type": "string"
+                }
+            },
+            "required": [],
+            "title": "Data"
+        },
+        "StepUp": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "15-02": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "StepUp"
+        }
+    }
+}

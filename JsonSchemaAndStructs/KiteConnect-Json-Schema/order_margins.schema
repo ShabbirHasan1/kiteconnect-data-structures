@@ -1,0 +1,81 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/OrderMargins",
+    "definitions": {
+        "OrderMargins": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "OrderMargins"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "exchange": {
+                    "type": "string"
+                },
+                "span": {
+                    "type": "integer"
+                },
+                "exposure": {
+                    "type": "integer"
+                },
+                "option_premium": {
+                    "type": "integer"
+                },
+                "additional": {
+                    "type": "integer"
+                },
+                "bo": {
+                    "type": "integer"
+                },
+                "cash": {
+                    "type": "integer"
+                },
+                "var": {
+                    "type": "number"
+                },
+                "pnl": {
+                    "$ref": "#/definitions/Pnl"
+                },
+                "total": {
+                    "type": "number"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        },
+        "Pnl": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "realised": {
+                    "type": "integer"
+                },
+                "unrealised": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Pnl"
+        }
+    }
+}

@@ -1,0 +1,122 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/OrderInfo",
+    "definitions": {
+        "OrderInfo": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "OrderInfo"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "average_price": {
+                    "type": "integer"
+                },
+                "cancelled_quantity": {
+                    "type": "integer"
+                },
+                "disclosed_quantity": {
+                    "type": "integer"
+                },
+                "exchange": {
+                    "type": "string"
+                },
+                "exchange_order_id": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "exchange_timestamp": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "filled_quantity": {
+                    "type": "integer"
+                },
+                "instrument_token": {
+                    "type": "integer"
+                },
+                "order_id": {
+                    "type": "string"
+                },
+                "order_timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "order_type": {
+                    "type": "string"
+                },
+                "parent_order_id": {
+                    "type": "null"
+                },
+                "pending_quantity": {
+                    "type": "integer"
+                },
+                "placed_by": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "product": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "status_message": {
+                    "type": "null"
+                },
+                "tag": {
+                    "type": "null"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
+                "trigger_price": {
+                    "type": "integer"
+                },
+                "validity": {
+                    "type": "string"
+                },
+                "variety": {
+                    "type": "string"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        }
+    }
+}

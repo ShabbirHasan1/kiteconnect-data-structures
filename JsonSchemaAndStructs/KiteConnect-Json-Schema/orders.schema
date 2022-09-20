@@ -1,0 +1,212 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Orders",
+    "definitions": {
+        "Orders": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Orders"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "placed_by": {
+                    "type": "string"
+                },
+                "order_id": {
+                    "type": "string"
+                },
+                "exchange_order_id": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "parent_order_id": {
+                    "type": "null"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "status_message": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "status_message_raw": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "order_timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "exchange_update_timestamp": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "exchange_timestamp": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "variety": {
+                    "type": "string"
+                },
+                "exchange": {
+                    "type": "string"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "instrument_token": {
+                    "type": "integer"
+                },
+                "order_type": {
+                    "type": "string"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
+                "validity": {
+                    "type": "string"
+                },
+                "product": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "disclosed_quantity": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "trigger_price": {
+                    "type": "integer"
+                },
+                "average_price": {
+                    "type": "integer"
+                },
+                "filled_quantity": {
+                    "type": "integer"
+                },
+                "pending_quantity": {
+                    "type": "integer"
+                },
+                "cancelled_quantity": {
+                    "type": "integer"
+                },
+                "market_protection": {
+                    "type": "integer"
+                },
+                "meta": {
+                    "$ref": "#/definitions/Meta"
+                },
+                "tag": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "guid": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "modified": {
+                    "type": "boolean"
+                },
+                "validity_ttl": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        },
+        "Meta": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "iceberg": {
+                    "$ref": "#/definitions/Iceberg"
+                }
+            },
+            "required": [],
+            "title": "Meta"
+        },
+        "Iceberg": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "leg": {
+                    "type": "integer"
+                },
+                "legs": {
+                    "type": "integer"
+                },
+                "leg_quantity": {
+                    "type": "integer"
+                },
+                "total_quantity": {
+                    "type": "integer"
+                },
+                "remaining_quantity": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Iceberg"
+        }
+    }
+}

@@ -1,0 +1,135 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Positions",
+    "definitions": {
+        "Positions": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "Positions"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "net": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Day"
+                    }
+                },
+                "day": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Day"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Data"
+        },
+        "Day": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "exchange": {
+                    "type": "string"
+                },
+                "instrument_token": {
+                    "type": "integer"
+                },
+                "product": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "overnight_quantity": {
+                    "type": "integer"
+                },
+                "multiplier": {
+                    "type": "integer"
+                },
+                "average_price": {
+                    "type": "number"
+                },
+                "close_price": {
+                    "type": "integer"
+                },
+                "last_price": {
+                    "type": "number"
+                },
+                "value": {
+                    "type": "integer"
+                },
+                "pnl": {
+                    "type": "integer"
+                },
+                "m2m": {
+                    "type": "integer"
+                },
+                "unrealised": {
+                    "type": "integer"
+                },
+                "realised": {
+                    "type": "integer"
+                },
+                "buy_quantity": {
+                    "type": "integer"
+                },
+                "buy_price": {
+                    "type": "number"
+                },
+                "buy_value": {
+                    "type": "integer"
+                },
+                "buy_m2m": {
+                    "type": "integer"
+                },
+                "sell_quantity": {
+                    "type": "integer"
+                },
+                "sell_price": {
+                    "type": "integer"
+                },
+                "sell_value": {
+                    "type": "integer"
+                },
+                "sell_m2m": {
+                    "type": "integer"
+                },
+                "day_buy_quantity": {
+                    "type": "integer"
+                },
+                "day_buy_price": {
+                    "type": "number"
+                },
+                "day_buy_value": {
+                    "type": "integer"
+                },
+                "day_sell_quantity": {
+                    "type": "integer"
+                },
+                "day_sell_price": {
+                    "type": "integer"
+                },
+                "day_sell_value": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Day"
+        }
+    }
+}

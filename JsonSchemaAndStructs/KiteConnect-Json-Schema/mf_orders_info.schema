@@ -1,0 +1,91 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/MFOrdersInfo",
+    "definitions": {
+        "MFOrdersInfo": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "MFOrdersInfo"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "purchase_type": {
+                    "type": "string"
+                },
+                "exchange_order_id": {
+                    "type": "null"
+                },
+                "last_price": {
+                    "type": "number"
+                },
+                "order_timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "fund": {
+                    "type": "string"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "null"
+                },
+                "placed_by": {
+                    "type": "string"
+                },
+                "last_price_date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "folio": {
+                    "type": "null"
+                },
+                "variety": {
+                    "type": "string"
+                },
+                "exchange_timestamp": {
+                    "type": "null"
+                },
+                "average_price": {
+                    "type": "integer"
+                },
+                "settlement_id": {
+                    "type": "null"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
+                "order_id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "amount": {
+                    "type": "integer"
+                },
+                "status_message": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Data"
+        }
+    }
+}

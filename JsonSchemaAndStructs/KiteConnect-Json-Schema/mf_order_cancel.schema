@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/MFOrderCancel",
+    "definitions": {
+        "MFOrderCancel": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "MFOrderCancel"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "order_id": {
+                    "type": "string",
+                    "format": "uuid"
+                }
+            },
+            "required": [],
+            "title": "Data"
+        }
+    }
+}

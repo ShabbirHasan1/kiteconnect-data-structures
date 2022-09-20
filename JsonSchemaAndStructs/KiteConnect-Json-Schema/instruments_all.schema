@@ -1,0 +1,80 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/InstrumentsAllElement"
+    },
+    "definitions": {
+        "InstrumentsAllElement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "instrument_token": {
+                    "type": "integer"
+                },
+                "exchange_token": {
+                    "type": "integer"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "last_price": {
+                    "type": "number"
+                },
+                "expiry": {
+                    "type": "string"
+                },
+                "strike": {
+                    "type": "integer"
+                },
+                "tick_size": {
+                    "type": "number"
+                },
+                "lot_size": {
+                    "type": "integer"
+                },
+                "instrument_type": {
+                    "$ref": "#/definitions/InstrumentType"
+                },
+                "segment": {
+                    "$ref": "#/definitions/Segment"
+                },
+                "exchange": {
+                    "$ref": "#/definitions/Exchange"
+                }
+            },
+            "required": [],
+            "title": "InstrumentsAllElement"
+        },
+        "Exchange": {
+            "type": "string",
+            "enum": [
+                "NSE",
+                "NFO",
+                "BSE"
+            ],
+            "title": "Exchange"
+        },
+        "InstrumentType": {
+            "type": "string",
+            "enum": [
+                "EQ",
+                "CE",
+                "PE"
+            ],
+            "title": "InstrumentType"
+        },
+        "Segment": {
+            "type": "string",
+            "enum": [
+                "NSE",
+                "NFO-OPT",
+                "BSE"
+            ],
+            "title": "Segment"
+        }
+    }
+}

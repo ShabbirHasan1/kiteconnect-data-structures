@@ -1,0 +1,110 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/MFInstrument"
+    },
+    "definitions": {
+        "MFInstrument": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "amc": {
+                    "$ref": "#/definitions/Amc"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "purchase_allowed": {
+                    "type": "integer"
+                },
+                "redemption_allowed": {
+                    "type": "integer"
+                },
+                "minimum_purchase_amount": {
+                    "type": "integer"
+                },
+                "purchase_amount_multiplier": {
+                    "type": "integer"
+                },
+                "minimum_additional_purchase_amount": {
+                    "type": "integer"
+                },
+                "minimum_redemption_quantity": {
+                    "type": "number"
+                },
+                "redemption_quantity_multiplier": {
+                    "type": "number"
+                },
+                "dividend_type": {
+                    "$ref": "#/definitions/DividendType"
+                },
+                "scheme_type": {
+                    "$ref": "#/definitions/SchemeType"
+                },
+                "plan": {
+                    "$ref": "#/definitions/Plan"
+                },
+                "settlement_type": {
+                    "$ref": "#/definitions/SettlementType"
+                },
+                "last_price": {
+                    "type": "number"
+                },
+                "last_price_date": {
+                    "type": "string",
+                    "format": "date"
+                }
+            },
+            "required": [],
+            "title": "MFInstrument"
+        },
+        "Amc": {
+            "type": "string",
+            "enum": [
+                "BirlaSunLifeMutualFund_MF"
+            ],
+            "title": "Amc"
+        },
+        "DividendType": {
+            "type": "string",
+            "enum": [
+                "payout",
+                "growth"
+            ],
+            "title": "DividendType"
+        },
+        "Plan": {
+            "type": "string",
+            "enum": [
+                "regular",
+                "direct"
+            ],
+            "title": "Plan"
+        },
+        "SchemeType": {
+            "type": "string",
+            "enum": [
+                "equity",
+                "balanced",
+                "debt",
+                "liquid",
+                "fof"
+            ],
+            "title": "SchemeType"
+        },
+        "SettlementType": {
+            "type": "string",
+            "enum": [
+                "T3",
+                "T1",
+                "T6",
+                "T4"
+            ],
+            "title": "SettlementType"
+        }
+    }
+}

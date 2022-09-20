@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Ltp",
+    "definitions": {
+        "Ltp": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Ltp"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "instrument_token": {
+                    "type": "integer"
+                },
+                "last_price": {
+                    "type": "number"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        }
+    }
+}

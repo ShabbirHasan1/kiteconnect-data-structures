@@ -1,0 +1,103 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/GenerateSession",
+    "definitions": {
+        "GenerateSession": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "GenerateSession"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "user_type": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                },
+                "user_shortname": {
+                    "type": "string"
+                },
+                "broker": {
+                    "type": "string"
+                },
+                "exchanges": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "order_types": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "avatar_url": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "api_key": {
+                    "type": "string"
+                },
+                "access_token": {
+                    "type": "string"
+                },
+                "public_token": {
+                    "type": "string"
+                },
+                "enctoken": {
+                    "type": "string"
+                },
+                "refresh_token": {
+                    "type": "string"
+                },
+                "silo": {
+                    "type": "string"
+                },
+                "login_time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "meta": {
+                    "$ref": "#/definitions/Meta"
+                }
+            },
+            "required": [],
+            "title": "Data"
+        },
+        "Meta": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "demat_consent": {
+                    "type": "string"
+                }
+            },
+            "required": [],
+            "title": "Meta"
+        }
+    }
+}

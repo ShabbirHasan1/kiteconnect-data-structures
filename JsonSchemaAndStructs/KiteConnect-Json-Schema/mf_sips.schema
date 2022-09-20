@@ -1,0 +1,102 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/MFSips",
+    "definitions": {
+        "MFSips": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "MFSips"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "sip_reg_num": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "format": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "created": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "dividend_type": {
+                    "type": "string"
+                },
+                "instalment_amount": {
+                    "type": "integer"
+                },
+                "fund": {
+                    "type": "string"
+                },
+                "instalments": {
+                    "type": "integer"
+                },
+                "next_instalment": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
+                "trigger_price": {
+                    "type": "integer"
+                },
+                "step_up": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                },
+                "frequency": {
+                    "type": "string"
+                },
+                "last_instalment": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "pending_instalments": {
+                    "type": "integer"
+                },
+                "instalment_day": {
+                    "type": "integer"
+                },
+                "sip_type": {
+                    "type": "string"
+                },
+                "completed_instalments": {
+                    "type": "integer"
+                },
+                "sip_id": {
+                    "type": "string"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        }
+    }
+}

@@ -1,0 +1,67 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/InstrumentsNseElement"
+    },
+    "definitions": {
+        "InstrumentsNseElement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "instrument_token": {
+                    "type": "integer"
+                },
+                "exchange_token": {
+                    "type": "integer"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "last_price": {
+                    "type": "integer"
+                },
+                "expiry": {
+                    "type": "string"
+                },
+                "strike": {
+                    "type": "integer"
+                },
+                "tick_size": {
+                    "type": "number"
+                },
+                "lot_size": {
+                    "type": "integer"
+                },
+                "instrument_type": {
+                    "$ref": "#/definitions/InstrumentType"
+                },
+                "segment": {
+                    "$ref": "#/definitions/Exchange"
+                },
+                "exchange": {
+                    "$ref": "#/definitions/Exchange"
+                }
+            },
+            "required": [],
+            "title": "InstrumentsNseElement"
+        },
+        "Exchange": {
+            "type": "string",
+            "enum": [
+                "NSE"
+            ],
+            "title": "Exchange"
+        },
+        "InstrumentType": {
+            "type": "string",
+            "enum": [
+                "EQ"
+            ],
+            "title": "InstrumentType"
+        }
+    }
+}

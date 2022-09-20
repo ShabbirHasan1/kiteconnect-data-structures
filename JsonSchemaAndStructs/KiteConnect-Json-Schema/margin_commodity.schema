@@ -1,0 +1,69 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/MarginCommodity",
+    "definitions": {
+        "MarginCommodity": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "MarginCommodity"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "net": {
+                    "type": "number"
+                },
+                "available": {
+                    "$ref": "#/definitions/Available"
+                },
+                "utilised": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Data"
+        },
+        "Available": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "adhoc_margin": {
+                    "type": "integer"
+                },
+                "cash": {
+                    "type": "number"
+                },
+                "opening_balance": {
+                    "type": "number"
+                },
+                "live_balance": {
+                    "type": "number"
+                },
+                "collateral": {
+                    "type": "integer"
+                },
+                "intraday_payin": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Available"
+        }
+    }
+}

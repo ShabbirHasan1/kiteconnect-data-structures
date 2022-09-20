@@ -1,0 +1,98 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/BasketMargins",
+    "definitions": {
+        "BasketMargins": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "BasketMargins"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "initial": {
+                    "$ref": "#/definitions/Final"
+                },
+                "final": {
+                    "$ref": "#/definitions/Final"
+                },
+                "orders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Final"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Data"
+        },
+        "Pnl": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "realised": {
+                    "type": "integer"
+                },
+                "unrealised": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Pnl"
+        },
+        "Final": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "exchange": {
+                    "type": "string"
+                },
+                "span": {
+                    "type": "number"
+                },
+                "exposure": {
+                    "type": "number"
+                },
+                "option_premium": {
+                    "type": "number"
+                },
+                "additional": {
+                    "type": "integer"
+                },
+                "bo": {
+                    "type": "integer"
+                },
+                "cash": {
+                    "type": "integer"
+                },
+                "var": {
+                    "type": "integer"
+                },
+                "pnl": {
+                    "$ref": "#/definitions/Pnl"
+                },
+                "total": {
+                    "type": "number"
+                }
+            },
+            "required": [],
+            "title": "Final"
+        }
+    }
+}

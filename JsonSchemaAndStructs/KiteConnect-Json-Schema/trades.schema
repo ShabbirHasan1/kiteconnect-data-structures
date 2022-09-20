@@ -1,0 +1,74 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Trades",
+    "definitions": {
+        "Trades": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Trades"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "trade_id": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "order_id": {
+                    "type": "string"
+                },
+                "exchange": {
+                    "type": "string"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "instrument_token": {
+                    "type": "integer"
+                },
+                "product": {
+                    "type": "string"
+                },
+                "average_price": {
+                    "type": "number"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "exchange_order_id": {
+                    "type": "string"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
+                "fill_timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "order_timestamp": {
+                    "type": "string",
+                    "format": "time"
+                },
+                "exchange_timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        }
+    }
+}

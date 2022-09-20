@@ -1,0 +1,141 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Quote",
+    "definitions": {
+        "Quote": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Quote"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "instrument_token": {
+                    "type": "integer"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "last_trade_time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "last_price": {
+                    "type": "number"
+                },
+                "last_quantity": {
+                    "type": "integer"
+                },
+                "buy_quantity": {
+                    "type": "integer"
+                },
+                "sell_quantity": {
+                    "type": "integer"
+                },
+                "volume": {
+                    "type": "integer"
+                },
+                "average_price": {
+                    "type": "number"
+                },
+                "oi": {
+                    "type": "integer"
+                },
+                "oi_day_high": {
+                    "type": "integer"
+                },
+                "oi_day_low": {
+                    "type": "integer"
+                },
+                "net_change": {
+                    "type": "integer"
+                },
+                "lower_circuit_limit": {
+                    "type": "number"
+                },
+                "upper_circuit_limit": {
+                    "type": "number"
+                },
+                "ohlc": {
+                    "$ref": "#/definitions/Ohlc"
+                },
+                "depth": {
+                    "$ref": "#/definitions/Depth"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        },
+        "Depth": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "buy": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Buy"
+                    }
+                },
+                "sell": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Buy"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Depth"
+        },
+        "Buy": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "price": {
+                    "type": "number"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "orders": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Buy"
+        },
+        "Ohlc": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "open": {
+                    "type": "integer"
+                },
+                "high": {
+                    "type": "number"
+                },
+                "low": {
+                    "type": "number"
+                },
+                "close": {
+                    "type": "number"
+                }
+            },
+            "required": [],
+            "title": "Ohlc"
+        }
+    }
+}

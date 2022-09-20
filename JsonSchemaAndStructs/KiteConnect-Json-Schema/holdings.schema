@@ -1,0 +1,98 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Holdings",
+    "definitions": {
+        "Holdings": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Holdings"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "exchange": {
+                    "type": "string"
+                },
+                "instrument_token": {
+                    "type": "integer"
+                },
+                "isin": {
+                    "type": "string"
+                },
+                "product": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "used_quantity": {
+                    "type": "integer"
+                },
+                "t1_quantity": {
+                    "type": "integer"
+                },
+                "realised_quantity": {
+                    "type": "integer"
+                },
+                "authorised_quantity": {
+                    "type": "integer"
+                },
+                "authorised_date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "opening_quantity": {
+                    "type": "integer"
+                },
+                "collateral_quantity": {
+                    "type": "integer"
+                },
+                "collateral_type": {
+                    "type": "string"
+                },
+                "discrepancy": {
+                    "type": "boolean"
+                },
+                "average_price": {
+                    "type": "number"
+                },
+                "last_price": {
+                    "type": "number"
+                },
+                "close_price": {
+                    "type": "number"
+                },
+                "pnl": {
+                    "type": "number"
+                },
+                "day_change": {
+                    "type": "number"
+                },
+                "day_change_percentage": {
+                    "type": "number"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        }
+    }
+}

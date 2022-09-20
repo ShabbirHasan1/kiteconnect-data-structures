@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Margins",
+    "definitions": {
+        "Margins": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "Margins"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "equity": {
+                    "$ref": "#/definitions/Ity"
+                },
+                "commodity": {
+                    "$ref": "#/definitions/Ity"
+                }
+            },
+            "required": [],
+            "title": "Data"
+        },
+        "Ity": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "net": {
+                    "type": "number"
+                },
+                "available": {
+                    "$ref": "#/definitions/Available"
+                },
+                "utilised": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Ity"
+        },
+        "Available": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "adhoc_margin": {
+                    "type": "integer"
+                },
+                "cash": {
+                    "type": "number"
+                },
+                "opening_balance": {
+                    "type": "number"
+                },
+                "live_balance": {
+                    "type": "number"
+                },
+                "collateral": {
+                    "type": "integer"
+                },
+                "intraday_payin": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Available"
+        }
+    }
+}

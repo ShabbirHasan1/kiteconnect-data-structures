@@ -1,0 +1,125 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/MFOrders",
+    "definitions": {
+        "MFOrders": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "MFOrders"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "purchase_type": {
+                    "type": "string"
+                },
+                "folio": {
+                    "type": "null"
+                },
+                "order_timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "average_price": {
+                    "type": "integer"
+                },
+                "exchange_order_id": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "format": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "last_price": {
+                    "type": "number"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "settlement_id": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "format": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
+                "order_id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "amount": {
+                    "type": "integer"
+                },
+                "tag": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "placed_by": {
+                    "type": "string"
+                },
+                "exchange_timestamp": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "variety": {
+                    "type": "string"
+                },
+                "last_price_date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "status_message": {
+                    "type": "string"
+                },
+                "fund": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        }
+    }
+}

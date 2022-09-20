@@ -1,0 +1,212 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/GttGetOrders",
+    "definitions": {
+        "GttGetOrders": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "GttGetOrders"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "parent_trigger": {
+                    "type": "null"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "expires_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "condition": {
+                    "$ref": "#/definitions/Condition"
+                },
+                "orders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Order"
+                    }
+                },
+                "meta": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Meta"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        },
+        "Condition": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "exchange": {
+                    "type": "string"
+                },
+                "last_price": {
+                    "type": "number"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "trigger_values": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "instrument_token": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Condition"
+        },
+        "Meta": {
+            "type": "object",
+            "additionalProperties": false,
+            "title": "Meta"
+        },
+        "Order": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "exchange": {
+                    "type": "string"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "product": {
+                    "type": "string"
+                },
+                "order_type": {
+                    "type": "string"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "result": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Result"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            },
+            "required": [],
+            "title": "Order"
+        },
+        "Result": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "account_id": {
+                    "type": "string"
+                },
+                "exchange": {
+                    "type": "string"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "validity": {
+                    "type": "string"
+                },
+                "product": {
+                    "type": "string"
+                },
+                "order_type": {
+                    "type": "string"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "meta": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "triggered_at": {
+                    "type": "number"
+                },
+                "order_result": {
+                    "$ref": "#/definitions/OrderResult"
+                }
+            },
+            "required": [],
+            "title": "Result"
+        },
+        "OrderResult": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "order_id": {
+                    "type": "string"
+                },
+                "rejection_reason": {
+                    "type": "string"
+                }
+            },
+            "required": [],
+            "title": "OrderResult"
+        }
+    }
+}

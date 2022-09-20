@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/GttModifyOrder",
+    "definitions": {
+        "GttModifyOrder": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Data"
+                }
+            },
+            "required": [],
+            "title": "GttModifyOrder"
+        },
+        "Data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "trigger_id": {
+                    "type": "integer"
+                }
+            },
+            "required": [],
+            "title": "Data"
+        }
+    }
+}

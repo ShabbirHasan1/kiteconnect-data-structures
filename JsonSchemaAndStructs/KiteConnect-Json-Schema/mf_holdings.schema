@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/MFHoldings",
+    "definitions": {
+        "MFHoldings": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Datum"
+                    }
+                }
+            },
+            "required": [],
+            "title": "MFHoldings"
+        },
+        "Datum": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "folio": {
+                    "type": "string"
+                },
+                "average_price": {
+                    "type": "number"
+                },
+                "last_price": {
+                    "type": "number"
+                },
+                "last_price_date": {
+                    "type": "string"
+                },
+                "pledged_quantity": {
+                    "type": "integer"
+                },
+                "fund": {
+                    "type": "string"
+                },
+                "tradingsymbol": {
+                    "type": "string"
+                },
+                "pnl": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "number"
+                }
+            },
+            "required": [],
+            "title": "Datum"
+        }
+    }
+}
