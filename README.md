@@ -1,6 +1,9 @@
 # KiteConnect Data Structures
 An Unofficial Library Containing JSON Schema and Data Class / Structs / Class Object Code For Serializing And Deserializing The Kite Connect Trading Apis JSON Responses Into The Language Of User Choice.
 
+# Why Unofficial ?
+The [Pull Request](https://github.com/zerodha/kiteconnect-mocks/pull/24) wasn't merged due to [scope mismatch](https://github.com/zerodha/kiteconnect-mocks/pull/24#issuecomment-1252181846) and it was advised by `kiteconnect-mocks team` to maintain this library as a seperate repository.
+
 # What Is The Purpose Of This Library ?
 Having a JSON schema from [kiteconnect-mocks](https://github.com/zerodha/kiteconnect-mocks) sample `.json` files, is a standard way to generate Data Class / Structs / Class Object code for serializing and deserializing the kiteconnect responses `.json` into the language of user choice.
 
