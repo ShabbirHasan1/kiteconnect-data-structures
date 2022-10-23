@@ -21,7 +21,7 @@ namespace TickerLtp
         public long? InstrumentToken { get; set; }
 
         [JsonProperty("last_price", NullValueHandling = NullValueHandling.Ignore)]
-        public long? LastPrice { get; set; }
+        public double? LastPrice { get; set; }
 
         [JsonProperty("mode", NullValueHandling = NullValueHandling.Ignore)]
         public string Mode { get; set; }
@@ -32,12 +32,12 @@ namespace TickerLtp
 
     public partial class TickerLtp
     {
-        public static TickerLtp[] FromJson(string json) => JsonConvert.DeserializeObject<TickerLtp[]>(json, TickerLtp.Converter.Settings);
+        public static TickerLtp FromJson(string json) => JsonConvert.DeserializeObject<TickerLtp>(json, TickerLtp.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this TickerLtp[] self) => JsonConvert.SerializeObject(self, TickerLtp.Converter.Settings);
+        public static string ToJson(this TickerLtp self) => JsonConvert.SerializeObject(self, TickerLtp.Converter.Settings);
     }
 
     internal static class Converter

@@ -10,7 +10,7 @@
 //
 // Then you can deserialize a JSON string with
 //
-//     TickerFull[] data = Converter.fromJsonString(jsonString);
+//     TickerFull data = Converter.fromJsonString(jsonString);
 
 package TickerFull;
 
@@ -60,11 +60,11 @@ public class Converter {
     }
     // Serialize/deserialize helpers
 
-    public static TickerFull[] fromJsonString(String json) throws IOException {
+    public static TickerFull fromJsonString(String json) throws IOException {
         return getObjectReader().readValue(json);
     }
 
-    public static String toJsonString(TickerFull[] obj) throws JsonProcessingException {
+    public static String toJsonString(TickerFull obj) throws JsonProcessingException {
         return getObjectWriter().writeValueAsString(obj);
     }
 
@@ -84,8 +84,8 @@ public class Converter {
             }
         });
         mapper.registerModule(module);
-        reader = mapper.readerFor(TickerFull[].class);
-        writer = mapper.writerFor(TickerFull[].class);
+        reader = mapper.readerFor(TickerFull.class);
+        writer = mapper.writerFor(TickerFull.class);
     }
 
     private static ObjectReader getObjectReader() {

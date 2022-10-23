@@ -12,22 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface TickerLtpTriggerRangeElement (JSONConversion)
+@interface TickerLtp (JSONConversion)
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
-
-static id map(id collection, id (^f)(id value)) {
-    id result = nil;
-    if ([collection isKindOfClass:NSArray.class]) {
-        result = [NSMutableArray arrayWithCapacity:[collection count]];
-        for (id x in collection) [result addObject:f(x)];
-    } else if ([collection isKindOfClass:NSDictionary.class]) {
-        result = [NSMutableDictionary dictionaryWithCapacity:[collection count]];
-        for (id key in collection) [result setObject:f([collection objectForKey:key]) forKey:key];
-    }
-    return result;
-}
 
 #pragma mark - JSON serialization
 
@@ -35,7 +23,7 @@ TickerLtp *_Nullable TickerLtpFromData(NSData *data, NSError **error)
 {
     @try {
         id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:error];
-        return *error ? nil : map(json, λ(id x, [TickerLtpTriggerRangeElement fromJSONDictionary:x]));
+        return *error ? nil : [TickerLtp fromJSONDictionary:json];
     } @catch (NSException *exception) {
         *error = [NSError errorWithDomain:@"JSONSerialization" code:-1 userInfo:@{ @"exception": exception }];
         return nil;
@@ -50,7 +38,7 @@ TickerLtp *_Nullable TickerLtpFromJSON(NSString *json, NSStringEncoding encoding
 NSData *_Nullable TickerLtpToData(TickerLtp *, NSError **error)
 {
     @try {
-        id json = map(, λ(id x, [x JSONDictionary]));
+        id json = [ JSONDictionary];
         NSData *data = [NSJSONSerialization dataWithJSONObject:json options:kNilOptions error:error];
         return *error ? nil : data;
     } @catch (NSException *exception) {
@@ -65,7 +53,7 @@ NSString *_Nullable TickerLtpToJSON(TickerLtp *, NSStringEncoding encoding, NSEr
     return data ? [[NSString alloc] initWithData:data encoding:encoding] : nil;
 }
 
-@implementation TickerLtpTriggerRangeElement
+@implementation TickerLtp
 + (NSDictionary<NSString *, NSString *> *)properties
 {
     static NSDictionary<NSString *, NSString *> *properties;
@@ -77,9 +65,19 @@ NSString *_Nullable TickerLtpToJSON(TickerLtp *, NSStringEncoding encoding, NSEr
     };
 }
 
++ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error
+{
+    return TickerLtpFromData(data, error);
+}
+
++ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error
+{
+    return TickerLtpFromJSON(json, encoding, error);
+}
+
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict
 {
-    return dict ? [[TickerLtpTriggerRangeElement alloc] initWithJSONDictionary:dict] : nil;
+    return dict ? [[TickerLtp alloc] initWithJSONDictionary:dict] : nil;
 }
 
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
@@ -92,23 +90,23 @@ NSString *_Nullable TickerLtpToJSON(TickerLtp *, NSStringEncoding encoding, NSEr
 
 - (void)setValue:(nullable id)value forKey:(NSString *)key
 {
-    id resolved = TickerLtpTriggerRangeElement.properties[key];
+    id resolved = TickerLtp.properties[key];
     if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (void)setNilValueForKey:(NSString *)key
 {
-    id resolved = TickerLtpTriggerRangeElement.properties[key];
+    id resolved = TickerLtp.properties[key];
     if (resolved) [super setValue:@(0) forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
 {
-    id dict = [[self dictionaryWithValuesForKeys:TickerLtpTriggerRangeElement.properties.allValues] mutableCopy];
+    id dict = [[self dictionaryWithValuesForKeys:TickerLtp.properties.allValues] mutableCopy];
 
     // Rewrite property names that differ in JSON
-    for (id jsonName in TickerLtpTriggerRangeElement.properties) {
-        id propertyName = TickerLtpTriggerRangeElement.properties[jsonName];
+    for (id jsonName in TickerLtp.properties) {
+        id propertyName = TickerLtp.properties[jsonName];
         if (![jsonName isEqualToString:propertyName]) {
             dict[jsonName] = dict[propertyName];
             [dict removeObjectForKey:propertyName];
@@ -116,6 +114,16 @@ NSString *_Nullable TickerLtpToJSON(TickerLtp *, NSStringEncoding encoding, NSEr
     }
 
     return dict;
+}
+
+- (NSData *_Nullable)toData:(NSError *_Nullable *)error
+{
+    return TickerLtpToData(self, error);
+}
+
+- (NSString *_Nullable)toJSON:(NSStringEncoding)encoding error:(NSError *_Nullable *)error
+{
+    return TickerLtpToJSON(self, encoding, error);
 }
 @end
 

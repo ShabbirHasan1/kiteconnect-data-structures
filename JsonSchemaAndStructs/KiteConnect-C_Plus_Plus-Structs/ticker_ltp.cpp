@@ -58,14 +58,14 @@ namespace TickerLtp {
         return get_optional<T>(j, property.data());
     }
 
-    class TriggerRangeElement {
+    class TickerLtp {
         public:
-        TriggerRangeElement() = default;
-        virtual ~TriggerRangeElement() = default;
+        TickerLtp() = default;
+        virtual ~TickerLtp() = default;
 
         private:
         std::shared_ptr<int64_t> instrument_token;
-        std::shared_ptr<int64_t> last_price;
+        std::shared_ptr<double> last_price;
         std::shared_ptr<std::string> mode;
         std::shared_ptr<bool> tradable;
 
@@ -73,8 +73,8 @@ namespace TickerLtp {
         std::shared_ptr<int64_t> get_instrument_token() const { return instrument_token; }
         void set_instrument_token(std::shared_ptr<int64_t> value) { this->instrument_token = value; }
 
-        std::shared_ptr<int64_t> get_last_price() const { return last_price; }
-        void set_last_price(std::shared_ptr<int64_t> value) { this->last_price = value; }
+        std::shared_ptr<double> get_last_price() const { return last_price; }
+        void set_last_price(std::shared_ptr<double> value) { this->last_price = value; }
 
         std::shared_ptr<std::string> get_mode() const { return mode; }
         void set_mode(std::shared_ptr<std::string> value) { this->mode = value; }
@@ -82,26 +82,20 @@ namespace TickerLtp {
         std::shared_ptr<bool> get_tradable() const { return tradable; }
         void set_tradable(std::shared_ptr<bool> value) { this->tradable = value; }
     };
-
-    using TickerLtp = std::vector<TriggerRangeElement>;
-}
-
-namespace TickerLtp {
-    using TickerLtp = std::vector<TriggerRangeElement>;
 }
 
 namespace nlohmann {
-    void from_json(const json & j, TickerLtp::TriggerRangeElement & x);
-    void to_json(json & j, const TickerLtp::TriggerRangeElement & x);
+    void from_json(const json & j, TickerLtp::TickerLtp & x);
+    void to_json(json & j, const TickerLtp::TickerLtp & x);
 
-    inline void from_json(const json & j, TickerLtp::TriggerRangeElement& x) {
+    inline void from_json(const json & j, TickerLtp::TickerLtp& x) {
         x.set_instrument_token(TickerLtp::get_optional<int64_t>(j, "instrument_token"));
-        x.set_last_price(TickerLtp::get_optional<int64_t>(j, "last_price"));
+        x.set_last_price(TickerLtp::get_optional<double>(j, "last_price"));
         x.set_mode(TickerLtp::get_optional<std::string>(j, "mode"));
         x.set_tradable(TickerLtp::get_optional<bool>(j, "tradable"));
     }
 
-    inline void to_json(json & j, const TickerLtp::TriggerRangeElement & x) {
+    inline void to_json(json & j, const TickerLtp::TickerLtp & x) {
         j = json::object();
         j["instrument_token"] = x.get_instrument_token();
         j["last_price"] = x.get_last_price();

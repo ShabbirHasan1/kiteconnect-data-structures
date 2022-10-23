@@ -3,7 +3,6 @@
 
 module TickerLtp
     ( TickerLtp (..)
-    , TriggerRangeElement (..)
     , decodeTopLevel
     ) where
 
@@ -14,29 +13,27 @@ import Data.HashMap.Strict (HashMap)
 import Data.Text (Text)
 import Data.Vector (Vector)
 
-type TickerLtp = Vector TriggerRangeElement
-
-data TriggerRangeElement = TriggerRangeElement
-    { instrumentTokenTriggerRangeElement :: Maybe Int
-    , lastPriceTriggerRangeElement :: Maybe Int
-    , modeTriggerRangeElement :: Maybe Text
-    , tradableTriggerRangeElement :: Maybe Bool
+data TickerLtp = TickerLtp
+    { instrumentTokenTickerLtp :: Maybe Int
+    , lastPriceTickerLtp :: Maybe Float
+    , modeTickerLtp :: Maybe Text
+    , tradableTickerLtp :: Maybe Bool
     } deriving (Show)
 
 decodeTopLevel :: ByteString -> Maybe TickerLtp
 decodeTopLevel = decode
 
-instance ToJSON TriggerRangeElement where
-    toJSON (TriggerRangeElement instrumentTokenTriggerRangeElement lastPriceTriggerRangeElement modeTriggerRangeElement tradableTriggerRangeElement) =
+instance ToJSON TickerLtp where
+    toJSON (TickerLtp instrumentTokenTickerLtp lastPriceTickerLtp modeTickerLtp tradableTickerLtp) =
         object
-        [ "instrument_token" .= instrumentTokenTriggerRangeElement
-        , "last_price" .= lastPriceTriggerRangeElement
-        , "mode" .= modeTriggerRangeElement
-        , "tradable" .= tradableTriggerRangeElement
+        [ "instrument_token" .= instrumentTokenTickerLtp
+        , "last_price" .= lastPriceTickerLtp
+        , "mode" .= modeTickerLtp
+        , "tradable" .= tradableTickerLtp
         ]
 
-instance FromJSON TriggerRangeElement where
-    parseJSON (Object v) = TriggerRangeElement
+instance FromJSON TickerLtp where
+    parseJSON (Object v) = TickerLtp
         <$> v .:? "instrument_token"
         <*> v .:? "last_price"
         <*> v .:? "mode"

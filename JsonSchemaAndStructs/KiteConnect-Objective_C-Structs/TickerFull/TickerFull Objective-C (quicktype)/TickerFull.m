@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface TickerFullTriggerRangeElement (JSONConversion)
+@interface TickerFull (JSONConversion)
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
@@ -50,7 +50,7 @@ TickerFull *_Nullable TickerFullFromData(NSData *data, NSError **error)
 {
     @try {
         id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:error];
-        return *error ? nil : map(json, λ(id x, [TickerFullTriggerRangeElement fromJSONDictionary:x]));
+        return *error ? nil : [TickerFull fromJSONDictionary:json];
     } @catch (NSException *exception) {
         *error = [NSError errorWithDomain:@"JSONSerialization" code:-1 userInfo:@{ @"exception": exception }];
         return nil;
@@ -65,7 +65,7 @@ TickerFull *_Nullable TickerFullFromJSON(NSString *json, NSStringEncoding encodi
 NSData *_Nullable TickerFullToData(TickerFull *, NSError **error)
 {
     @try {
-        id json = map(, λ(id x, [x JSONDictionary]));
+        id json = [ JSONDictionary];
         NSData *data = [NSJSONSerialization dataWithJSONObject:json options:kNilOptions error:error];
         return *error ? nil : data;
     } @catch (NSException *exception) {
@@ -80,34 +80,44 @@ NSString *_Nullable TickerFullToJSON(TickerFull *, NSStringEncoding encoding, NS
     return data ? [[NSString alloc] initWithData:data encoding:encoding] : nil;
 }
 
-@implementation TickerFullTriggerRangeElement
+@implementation TickerFull
 + (NSDictionary<NSString *, NSString *> *)properties
 {
     static NSDictionary<NSString *, NSString *> *properties;
     return properties = properties ? properties : @{
-        @"average_traded_price": @"averageTradedPrice",
+        @"average_price": @"averagePrice",
+        @"buy_quantity": @"buyQuantity",
         @"change": @"change",
         @"depth": @"depth",
-        @"exchange_timestamp": @"exchangeTimestamp",
         @"instrument_token": @"instrumentToken",
         @"last_price": @"lastPrice",
+        @"last_quantity": @"lastQuantity",
         @"last_trade_time": @"lastTradeTime",
-        @"last_traded_quantity": @"lastTradedQuantity",
         @"mode": @"mode",
         @"ohlc": @"ohlc",
         @"oi": @"oi",
         @"oi_day_high": @"oiDayHigh",
         @"oi_day_low": @"oiDayLow",
-        @"total_buy_quantity": @"totalBuyQuantity",
-        @"total_sell_quantity": @"totalSellQuantity",
+        @"sell_quantity": @"sellQuantity",
+        @"timestamp": @"timestamp",
         @"tradable": @"tradable",
-        @"volume_traded": @"volumeTraded",
+        @"volume": @"volume",
     };
+}
+
++ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error
+{
+    return TickerFullFromData(data, error);
+}
+
++ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error
+{
+    return TickerFullFromJSON(json, encoding, error);
 }
 
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict
 {
-    return dict ? [[TickerFullTriggerRangeElement alloc] initWithJSONDictionary:dict] : nil;
+    return dict ? [[TickerFull alloc] initWithJSONDictionary:dict] : nil;
 }
 
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
@@ -122,23 +132,23 @@ NSString *_Nullable TickerFullToJSON(TickerFull *, NSStringEncoding encoding, NS
 
 - (void)setValue:(nullable id)value forKey:(NSString *)key
 {
-    id resolved = TickerFullTriggerRangeElement.properties[key];
+    id resolved = TickerFull.properties[key];
     if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (void)setNilValueForKey:(NSString *)key
 {
-    id resolved = TickerFullTriggerRangeElement.properties[key];
+    id resolved = TickerFull.properties[key];
     if (resolved) [super setValue:@(0) forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
 {
-    id dict = [[self dictionaryWithValuesForKeys:TickerFullTriggerRangeElement.properties.allValues] mutableCopy];
+    id dict = [[self dictionaryWithValuesForKeys:TickerFull.properties.allValues] mutableCopy];
 
     // Rewrite property names that differ in JSON
-    for (id jsonName in TickerFullTriggerRangeElement.properties) {
-        id propertyName = TickerFullTriggerRangeElement.properties[jsonName];
+    for (id jsonName in TickerFull.properties) {
+        id propertyName = TickerFull.properties[jsonName];
         if (![jsonName isEqualToString:propertyName]) {
             dict[jsonName] = dict[propertyName];
             [dict removeObjectForKey:propertyName];
@@ -152,6 +162,16 @@ NSString *_Nullable TickerFullToJSON(TickerFull *, NSStringEncoding encoding, NS
     }];
 
     return dict;
+}
+
+- (NSData *_Nullable)toData:(NSError *_Nullable *)error
+{
+    return TickerFullToData(self, error);
+}
+
+- (NSString *_Nullable)toJSON:(NSStringEncoding)encoding error:(NSError *_Nullable *)error
+{
+    return TickerFullToJSON(self, encoding, error);
 }
 @end
 

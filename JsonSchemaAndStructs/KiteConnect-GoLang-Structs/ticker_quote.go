@@ -8,8 +8,6 @@ package TickerQuote
 
 import "encoding/json"
 
-type TickerQuote []TriggerRangeElement
-
 func UnmarshalTickerQuote(data []byte) (TickerQuote, error) {
 	var r TickerQuote
 	err := json.Unmarshal(data, &r)
@@ -20,23 +18,23 @@ func (r *TickerQuote) Marshal() ([]byte, error) {
 	return json.Marshal(r)
 }
 
-type TriggerRangeElement struct {
-	AverageTradedPrice *float64 `json:"average_traded_price,omitempty"`
-	Change             *float64 `json:"change,omitempty"`              
-	InstrumentToken    *int64   `json:"instrument_token,omitempty"`    
-	LastPrice          *int64   `json:"last_price,omitempty"`          
-	LastTradedQuantity *int64   `json:"last_traded_quantity,omitempty"`
-	Mode               *string  `json:"mode,omitempty"`                
-	Ohlc               *Ohlc    `json:"ohlc,omitempty"`                
-	TotalBuyQuantity   *int64   `json:"total_buy_quantity,omitempty"`  
-	TotalSellQuantity  *int64   `json:"total_sell_quantity,omitempty"` 
-	Tradable           *bool    `json:"tradable,omitempty"`            
-	VolumeTraded       *int64   `json:"volume_traded,omitempty"`       
+type TickerQuote struct {
+	AveragePrice    *float64 `json:"average_price,omitempty"`   
+	BuyQuantity     *int64   `json:"buy_quantity,omitempty"`    
+	Change          *float64 `json:"change,omitempty"`          
+	InstrumentToken *int64   `json:"instrument_token,omitempty"`
+	LastPrice       *float64 `json:"last_price,omitempty"`      
+	LastQuantity    *int64   `json:"last_quantity,omitempty"`   
+	Mode            *string  `json:"mode,omitempty"`            
+	Ohlc            *Ohlc    `json:"ohlc,omitempty"`            
+	SellQuantity    *int64   `json:"sell_quantity,omitempty"`   
+	Tradable        *bool    `json:"tradable,omitempty"`        
+	Volume          *int64   `json:"volume,omitempty"`          
 }
 
 type Ohlc struct {
-	Close *int64 `json:"close,omitempty"`
-	High  *int64 `json:"high,omitempty"` 
-	Low   *int64 `json:"low,omitempty"`  
-	Open  *int64 `json:"open,omitempty"` 
+	Close *float64 `json:"close,omitempty"`
+	High  *int64   `json:"high,omitempty"` 
+	Low   *float64 `json:"low,omitempty"`  
+	Open  *float64 `json:"open,omitempty"` 
 }

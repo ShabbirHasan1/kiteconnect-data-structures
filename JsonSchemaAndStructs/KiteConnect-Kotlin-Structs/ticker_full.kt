@@ -1,79 +1,73 @@
-// To parse the JSON, install kotlin's serialization plugin and do:
+// To parse the JSON, install Klaxon and do:
 //
-// val json       = Json(JsonConfiguration.Stable)
-// val tickerFull = json.parse(TickerFull.serializer(), jsonString)
+//   val tickerFull = TickerFull.fromJson(jsonString)
 
 package TickerFull
 
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
-import kotlinx.serialization.descriptors.*
-import kotlinx.serialization.encoding.*
+import com.beust.klaxon.*
 
-typealias TickerFull = JsonArray<TriggerRangeElement>
+private val klaxon = Klaxon()
 
-@Serializable
-data class TriggerRangeElement (
-    @SerialName("average_traded_price")
-    val averageTradedPrice: Double? = null,
+data class TickerFull (
+    @Json(name = "average_price")
+    val averagePrice: Double? = null,
+
+    @Json(name = "buy_quantity")
+    val buyQuantity: Long? = null,
 
     val change: Double? = null,
     val depth: Depth? = null,
 
-    @SerialName("exchange_timestamp")
-    val exchangeTimestamp: String? = null,
-
-    @SerialName("instrument_token")
+    @Json(name = "instrument_token")
     val instrumentToken: Long? = null,
 
-    @SerialName("last_price")
-    val lastPrice: Long? = null,
+    @Json(name = "last_price")
+    val lastPrice: Double? = null,
 
-    @SerialName("last_trade_time")
+    @Json(name = "last_quantity")
+    val lastQuantity: Long? = null,
+
+    @Json(name = "last_trade_time")
     val lastTradeTime: String? = null,
-
-    @SerialName("last_traded_quantity")
-    val lastTradedQuantity: Long? = null,
 
     val mode: String? = null,
     val ohlc: Ohlc? = null,
     val oi: Long? = null,
 
-    @SerialName("oi_day_high")
+    @Json(name = "oi_day_high")
     val oiDayHigh: Long? = null,
 
-    @SerialName("oi_day_low")
+    @Json(name = "oi_day_low")
     val oiDayLow: Long? = null,
 
-    @SerialName("total_buy_quantity")
-    val totalBuyQuantity: Long? = null,
+    @Json(name = "sell_quantity")
+    val sellQuantity: Long? = null,
 
-    @SerialName("total_sell_quantity")
-    val totalSellQuantity: Long? = null,
-
+    val timestamp: String? = null,
     val tradable: Boolean? = null,
+    val volume: Long? = null
+) {
+    public fun toJson() = klaxon.toJsonString(this)
 
-    @SerialName("volume_traded")
-    val volumeTraded: Long? = null
-)
+    companion object {
+        public fun fromJson(json: String) = klaxon.parse<TickerFull>(json)
+    }
+}
 
-@Serializable
 data class Depth (
     val buy: List<Buy>? = null,
     val sell: List<Buy>? = null
 )
 
-@Serializable
 data class Buy (
     val orders: Long? = null,
-    val price: Long? = null,
+    val price: Double? = null,
     val quantity: Long? = null
 )
 
-@Serializable
 data class Ohlc (
-    val close: Long? = null,
+    val close: Double? = null,
     val high: Long? = null,
-    val low: Long? = null,
-    val open: Long? = null
+    val low: Double? = null,
+    val open: Double? = null
 )

@@ -10,11 +10,11 @@
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 function toTickerLtp(json) {
-    return cast(JSON.parse(json), a(r("TickerLtp")));
+    return cast(JSON.parse(json), r("TickerLtp"));
 }
 
 function tickerLtpToJson(value) {
-    return JSON.stringify(uncast(value, a(r("TickerLtp"))), null, 2);
+    return JSON.stringify(uncast(value, r("TickerLtp")), null, 2);
 }
 
 function invalidValue(typ, val, key = '') {
@@ -87,16 +87,18 @@ function transform(val, typ, getProps, key = '') {
             return invalidValue("object", val);
         }
         const result = {};
-        Object.getOwnPropertyNames(props).forEach(key => {
-            const prop = props[key];
-            const v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
-            result[prop.key] = transform(v, prop.typ, getProps, prop.key);
-        });
-        Object.getOwnPropertyNames(val).forEach(key => {
-            if (!Object.prototype.hasOwnProperty.call(props, key)) {
-                result[key] = transform(val[key], additional, getProps, key);
-            }
-        });
+        Object.getOwnPropertyNames(props)
+            .forEach(key => {
+                const prop = props[key];
+                const v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
+                result[prop.key] = transform(v, prop.typ, getProps, prop.key);
+            });
+        Object.getOwnPropertyNames(val)
+            .forEach(key => {
+                if (!Object.prototype.hasOwnProperty.call(props, key)) {
+                    result[key] = transform(val[key], additional, getProps, key);
+                }
+            });
         return result;
     }
 
@@ -111,10 +113,10 @@ function transform(val, typ, getProps, key = '') {
     }
     if (Array.isArray(typ)) return transformEnum(typ, val);
     if (typeof typ === "object") {
-        return typ.hasOwnProperty("unionMembers") ? transformUnion(typ.unionMembers, val)
-            : typ.hasOwnProperty("arrayItems")    ? transformArray(typ.arrayItems, val)
-            : typ.hasOwnProperty("props")         ? transformObject(getProps(typ), typ.additional, val)
-            : invalidValue(typ, val);
+        return typ.hasOwnProperty("unionMembers") ? transformUnion(typ.unionMembers, val) :
+            typ.hasOwnProperty("arrayItems") ? transformArray(typ.arrayItems, val) :
+            typ.hasOwnProperty("props") ? transformObject(getProps(typ), typ.additional, val) :
+            invalidValue(typ, val);
     }
     // Numbers can be parsed by Date but shouldn't be.
     if (typ === Date && typeof val !== "number") return transformDate(val);
@@ -152,7 +154,7 @@ function r(name) {
 const typeMap = {
     "TickerLtp": o([
         { json: "instrument_token", js: "instrument_token", typ: u(undefined, 0) },
-        { json: "last_price", js: "last_price", typ: u(undefined, 0) },
+        { json: "last_price", js: "last_price", typ: u(undefined, 3.14) },
         { json: "mode", js: "mode", typ: u(undefined, "") },
         { json: "tradable", js: "tradable", typ: u(undefined, true) },
     ], false),

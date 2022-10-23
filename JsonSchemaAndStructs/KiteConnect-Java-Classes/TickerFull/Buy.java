@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class Buy {
     private Long orders;
-    private Long price;
+    private Double price;
     private Long quantity;
 
     @JsonProperty("orders")
@@ -13,9 +13,9 @@ public class Buy {
     public void setOrders(Long value) { this.orders = value; }
 
     @JsonProperty("price")
-    public Long getPrice() { return price; }
+    public Double getPrice() { return price; }
     @JsonProperty("price")
-    public void setPrice(Long value) { this.price = value; }
+    public void setPrice(Double value) { this.price = value; }
 
     @JsonProperty("quantity")
     public Long getQuantity() { return quantity; }

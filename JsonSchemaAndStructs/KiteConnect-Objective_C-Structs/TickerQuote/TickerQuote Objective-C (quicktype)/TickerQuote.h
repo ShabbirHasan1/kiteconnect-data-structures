@@ -1,38 +1,34 @@
 // To parse this JSON:
 //
 //   NSError *error;
-//   TickerQuote * = TickerQuoteFromJSON(json, NSUTF8Encoding, &error);
+//   TickerQuote * = [TickerQuote fromJSON:json encoding:NSUTF8Encoding error:&error];
 
 #import <Foundation/Foundation.h>
 
-@class TickerQuoteTriggerRangeElement;
+@class TickerQuote;
 @class TickerQuoteOhlc;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSArray<TickerQuoteTriggerRangeElement *> TickerQuote;
-
-#pragma mark - Top-level marshaling functions
-
-TickerQuote *_Nullable TickerQuoteFromData(NSData *data, NSError **error);
-TickerQuote *_Nullable TickerQuoteFromJSON(NSString *json, NSStringEncoding encoding, NSError **error);
-NSData      *_Nullable TickerQuoteToData(TickerQuote *, NSError **error);
-NSString    *_Nullable TickerQuoteToJSON(TickerQuote *, NSStringEncoding encoding, NSError **error);
-
 #pragma mark - Object interfaces
 
-@interface TickerQuoteTriggerRangeElement : NSObject
-@property (nonatomic, nullable, strong) NSNumber *averageTradedPrice;
+@interface TickerQuote : NSObject
+@property (nonatomic, nullable, strong) NSNumber *averagePrice;
+@property (nonatomic, nullable, strong) NSNumber *buyQuantity;
 @property (nonatomic, nullable, strong) NSNumber *change;
 @property (nonatomic, nullable, strong) NSNumber *instrumentToken;
 @property (nonatomic, nullable, strong) NSNumber *lastPrice;
-@property (nonatomic, nullable, strong) NSNumber *lastTradedQuantity;
+@property (nonatomic, nullable, strong) NSNumber *lastQuantity;
 @property (nonatomic, nullable, copy)   NSString *mode;
 @property (nonatomic, nullable, strong) TickerQuoteOhlc *ohlc;
-@property (nonatomic, nullable, strong) NSNumber *totalBuyQuantity;
-@property (nonatomic, nullable, strong) NSNumber *totalSellQuantity;
+@property (nonatomic, nullable, strong) NSNumber *sellQuantity;
 @property (nonatomic, nullable, strong) NSNumber *tradable;
-@property (nonatomic, nullable, strong) NSNumber *volumeTraded;
+@property (nonatomic, nullable, strong) NSNumber *volume;
+
++ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
++ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error;
+- (NSString *_Nullable)toJSON:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
+- (NSData *_Nullable)toData:(NSError *_Nullable *)error;
 @end
 
 @interface TickerQuoteOhlc : NSObject

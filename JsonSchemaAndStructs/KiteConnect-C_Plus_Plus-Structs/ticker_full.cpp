@@ -65,15 +65,15 @@ namespace TickerFull {
 
         private:
         std::shared_ptr<int64_t> orders;
-        std::shared_ptr<int64_t> price;
+        std::shared_ptr<double> price;
         std::shared_ptr<int64_t> quantity;
 
         public:
         std::shared_ptr<int64_t> get_orders() const { return orders; }
         void set_orders(std::shared_ptr<int64_t> value) { this->orders = value; }
 
-        std::shared_ptr<int64_t> get_price() const { return price; }
-        void set_price(std::shared_ptr<int64_t> value) { this->price = value; }
+        std::shared_ptr<double> get_price() const { return price; }
+        void set_price(std::shared_ptr<double> value) { this->price = value; }
 
         std::shared_ptr<int64_t> get_quantity() const { return quantity; }
         void set_quantity(std::shared_ptr<int64_t> value) { this->quantity = value; }
@@ -102,52 +102,55 @@ namespace TickerFull {
         virtual ~Ohlc() = default;
 
         private:
-        std::shared_ptr<int64_t> close;
+        std::shared_ptr<double> close;
         std::shared_ptr<int64_t> high;
-        std::shared_ptr<int64_t> low;
-        std::shared_ptr<int64_t> open;
+        std::shared_ptr<double> low;
+        std::shared_ptr<double> open;
 
         public:
-        std::shared_ptr<int64_t> get_close() const { return close; }
-        void set_close(std::shared_ptr<int64_t> value) { this->close = value; }
+        std::shared_ptr<double> get_close() const { return close; }
+        void set_close(std::shared_ptr<double> value) { this->close = value; }
 
         std::shared_ptr<int64_t> get_high() const { return high; }
         void set_high(std::shared_ptr<int64_t> value) { this->high = value; }
 
-        std::shared_ptr<int64_t> get_low() const { return low; }
-        void set_low(std::shared_ptr<int64_t> value) { this->low = value; }
+        std::shared_ptr<double> get_low() const { return low; }
+        void set_low(std::shared_ptr<double> value) { this->low = value; }
 
-        std::shared_ptr<int64_t> get_open() const { return open; }
-        void set_open(std::shared_ptr<int64_t> value) { this->open = value; }
+        std::shared_ptr<double> get_open() const { return open; }
+        void set_open(std::shared_ptr<double> value) { this->open = value; }
     };
 
-    class TriggerRangeElement {
+    class TickerFull {
         public:
-        TriggerRangeElement() = default;
-        virtual ~TriggerRangeElement() = default;
+        TickerFull() = default;
+        virtual ~TickerFull() = default;
 
         private:
-        std::shared_ptr<double> average_traded_price;
+        std::shared_ptr<double> average_price;
+        std::shared_ptr<int64_t> buy_quantity;
         std::shared_ptr<double> change;
         std::shared_ptr<Depth> depth;
-        std::shared_ptr<std::string> exchange_timestamp;
         std::shared_ptr<int64_t> instrument_token;
-        std::shared_ptr<int64_t> last_price;
+        std::shared_ptr<double> last_price;
+        std::shared_ptr<int64_t> last_quantity;
         std::shared_ptr<std::string> last_trade_time;
-        std::shared_ptr<int64_t> last_traded_quantity;
         std::shared_ptr<std::string> mode;
         std::shared_ptr<Ohlc> ohlc;
         std::shared_ptr<int64_t> oi;
         std::shared_ptr<int64_t> oi_day_high;
         std::shared_ptr<int64_t> oi_day_low;
-        std::shared_ptr<int64_t> total_buy_quantity;
-        std::shared_ptr<int64_t> total_sell_quantity;
+        std::shared_ptr<int64_t> sell_quantity;
+        std::shared_ptr<std::string> timestamp;
         std::shared_ptr<bool> tradable;
-        std::shared_ptr<int64_t> volume_traded;
+        std::shared_ptr<int64_t> volume;
 
         public:
-        std::shared_ptr<double> get_average_traded_price() const { return average_traded_price; }
-        void set_average_traded_price(std::shared_ptr<double> value) { this->average_traded_price = value; }
+        std::shared_ptr<double> get_average_price() const { return average_price; }
+        void set_average_price(std::shared_ptr<double> value) { this->average_price = value; }
+
+        std::shared_ptr<int64_t> get_buy_quantity() const { return buy_quantity; }
+        void set_buy_quantity(std::shared_ptr<int64_t> value) { this->buy_quantity = value; }
 
         std::shared_ptr<double> get_change() const { return change; }
         void set_change(std::shared_ptr<double> value) { this->change = value; }
@@ -155,20 +158,17 @@ namespace TickerFull {
         std::shared_ptr<Depth> get_depth() const { return depth; }
         void set_depth(std::shared_ptr<Depth> value) { this->depth = value; }
 
-        std::shared_ptr<std::string> get_exchange_timestamp() const { return exchange_timestamp; }
-        void set_exchange_timestamp(std::shared_ptr<std::string> value) { this->exchange_timestamp = value; }
-
         std::shared_ptr<int64_t> get_instrument_token() const { return instrument_token; }
         void set_instrument_token(std::shared_ptr<int64_t> value) { this->instrument_token = value; }
 
-        std::shared_ptr<int64_t> get_last_price() const { return last_price; }
-        void set_last_price(std::shared_ptr<int64_t> value) { this->last_price = value; }
+        std::shared_ptr<double> get_last_price() const { return last_price; }
+        void set_last_price(std::shared_ptr<double> value) { this->last_price = value; }
+
+        std::shared_ptr<int64_t> get_last_quantity() const { return last_quantity; }
+        void set_last_quantity(std::shared_ptr<int64_t> value) { this->last_quantity = value; }
 
         std::shared_ptr<std::string> get_last_trade_time() const { return last_trade_time; }
         void set_last_trade_time(std::shared_ptr<std::string> value) { this->last_trade_time = value; }
-
-        std::shared_ptr<int64_t> get_last_traded_quantity() const { return last_traded_quantity; }
-        void set_last_traded_quantity(std::shared_ptr<int64_t> value) { this->last_traded_quantity = value; }
 
         std::shared_ptr<std::string> get_mode() const { return mode; }
         void set_mode(std::shared_ptr<std::string> value) { this->mode = value; }
@@ -185,24 +185,18 @@ namespace TickerFull {
         std::shared_ptr<int64_t> get_oi_day_low() const { return oi_day_low; }
         void set_oi_day_low(std::shared_ptr<int64_t> value) { this->oi_day_low = value; }
 
-        std::shared_ptr<int64_t> get_total_buy_quantity() const { return total_buy_quantity; }
-        void set_total_buy_quantity(std::shared_ptr<int64_t> value) { this->total_buy_quantity = value; }
+        std::shared_ptr<int64_t> get_sell_quantity() const { return sell_quantity; }
+        void set_sell_quantity(std::shared_ptr<int64_t> value) { this->sell_quantity = value; }
 
-        std::shared_ptr<int64_t> get_total_sell_quantity() const { return total_sell_quantity; }
-        void set_total_sell_quantity(std::shared_ptr<int64_t> value) { this->total_sell_quantity = value; }
+        std::shared_ptr<std::string> get_timestamp() const { return timestamp; }
+        void set_timestamp(std::shared_ptr<std::string> value) { this->timestamp = value; }
 
         std::shared_ptr<bool> get_tradable() const { return tradable; }
         void set_tradable(std::shared_ptr<bool> value) { this->tradable = value; }
 
-        std::shared_ptr<int64_t> get_volume_traded() const { return volume_traded; }
-        void set_volume_traded(std::shared_ptr<int64_t> value) { this->volume_traded = value; }
+        std::shared_ptr<int64_t> get_volume() const { return volume; }
+        void set_volume(std::shared_ptr<int64_t> value) { this->volume = value; }
     };
-
-    using TickerFull = std::vector<TriggerRangeElement>;
-}
-
-namespace TickerFull {
-    using TickerFull = std::vector<TriggerRangeElement>;
 }
 
 namespace nlohmann {
@@ -215,12 +209,12 @@ namespace nlohmann {
     void from_json(const json & j, TickerFull::Ohlc & x);
     void to_json(json & j, const TickerFull::Ohlc & x);
 
-    void from_json(const json & j, TickerFull::TriggerRangeElement & x);
-    void to_json(json & j, const TickerFull::TriggerRangeElement & x);
+    void from_json(const json & j, TickerFull::TickerFull & x);
+    void to_json(json & j, const TickerFull::TickerFull & x);
 
     inline void from_json(const json & j, TickerFull::Buy& x) {
         x.set_orders(TickerFull::get_optional<int64_t>(j, "orders"));
-        x.set_price(TickerFull::get_optional<int64_t>(j, "price"));
+        x.set_price(TickerFull::get_optional<double>(j, "price"));
         x.set_quantity(TickerFull::get_optional<int64_t>(j, "quantity"));
     }
 
@@ -243,10 +237,10 @@ namespace nlohmann {
     }
 
     inline void from_json(const json & j, TickerFull::Ohlc& x) {
-        x.set_close(TickerFull::get_optional<int64_t>(j, "close"));
+        x.set_close(TickerFull::get_optional<double>(j, "close"));
         x.set_high(TickerFull::get_optional<int64_t>(j, "high"));
-        x.set_low(TickerFull::get_optional<int64_t>(j, "low"));
-        x.set_open(TickerFull::get_optional<int64_t>(j, "open"));
+        x.set_low(TickerFull::get_optional<double>(j, "low"));
+        x.set_open(TickerFull::get_optional<double>(j, "open"));
     }
 
     inline void to_json(json & j, const TickerFull::Ohlc & x) {
@@ -257,44 +251,44 @@ namespace nlohmann {
         j["open"] = x.get_open();
     }
 
-    inline void from_json(const json & j, TickerFull::TriggerRangeElement& x) {
-        x.set_average_traded_price(TickerFull::get_optional<double>(j, "average_traded_price"));
+    inline void from_json(const json & j, TickerFull::TickerFull& x) {
+        x.set_average_price(TickerFull::get_optional<double>(j, "average_price"));
+        x.set_buy_quantity(TickerFull::get_optional<int64_t>(j, "buy_quantity"));
         x.set_change(TickerFull::get_optional<double>(j, "change"));
         x.set_depth(TickerFull::get_optional<TickerFull::Depth>(j, "depth"));
-        x.set_exchange_timestamp(TickerFull::get_optional<std::string>(j, "exchange_timestamp"));
         x.set_instrument_token(TickerFull::get_optional<int64_t>(j, "instrument_token"));
-        x.set_last_price(TickerFull::get_optional<int64_t>(j, "last_price"));
+        x.set_last_price(TickerFull::get_optional<double>(j, "last_price"));
+        x.set_last_quantity(TickerFull::get_optional<int64_t>(j, "last_quantity"));
         x.set_last_trade_time(TickerFull::get_optional<std::string>(j, "last_trade_time"));
-        x.set_last_traded_quantity(TickerFull::get_optional<int64_t>(j, "last_traded_quantity"));
         x.set_mode(TickerFull::get_optional<std::string>(j, "mode"));
         x.set_ohlc(TickerFull::get_optional<TickerFull::Ohlc>(j, "ohlc"));
         x.set_oi(TickerFull::get_optional<int64_t>(j, "oi"));
         x.set_oi_day_high(TickerFull::get_optional<int64_t>(j, "oi_day_high"));
         x.set_oi_day_low(TickerFull::get_optional<int64_t>(j, "oi_day_low"));
-        x.set_total_buy_quantity(TickerFull::get_optional<int64_t>(j, "total_buy_quantity"));
-        x.set_total_sell_quantity(TickerFull::get_optional<int64_t>(j, "total_sell_quantity"));
+        x.set_sell_quantity(TickerFull::get_optional<int64_t>(j, "sell_quantity"));
+        x.set_timestamp(TickerFull::get_optional<std::string>(j, "timestamp"));
         x.set_tradable(TickerFull::get_optional<bool>(j, "tradable"));
-        x.set_volume_traded(TickerFull::get_optional<int64_t>(j, "volume_traded"));
+        x.set_volume(TickerFull::get_optional<int64_t>(j, "volume"));
     }
 
-    inline void to_json(json & j, const TickerFull::TriggerRangeElement & x) {
+    inline void to_json(json & j, const TickerFull::TickerFull & x) {
         j = json::object();
-        j["average_traded_price"] = x.get_average_traded_price();
+        j["average_price"] = x.get_average_price();
+        j["buy_quantity"] = x.get_buy_quantity();
         j["change"] = x.get_change();
         j["depth"] = x.get_depth();
-        j["exchange_timestamp"] = x.get_exchange_timestamp();
         j["instrument_token"] = x.get_instrument_token();
         j["last_price"] = x.get_last_price();
+        j["last_quantity"] = x.get_last_quantity();
         j["last_trade_time"] = x.get_last_trade_time();
-        j["last_traded_quantity"] = x.get_last_traded_quantity();
         j["mode"] = x.get_mode();
         j["ohlc"] = x.get_ohlc();
         j["oi"] = x.get_oi();
         j["oi_day_high"] = x.get_oi_day_high();
         j["oi_day_low"] = x.get_oi_day_low();
-        j["total_buy_quantity"] = x.get_total_buy_quantity();
-        j["total_sell_quantity"] = x.get_total_sell_quantity();
+        j["sell_quantity"] = x.get_sell_quantity();
+        j["timestamp"] = x.get_timestamp();
         j["tradable"] = x.get_tradable();
-        j["volume_traded"] = x.get_volume_traded();
+        j["volume"] = x.get_volume();
     }
 }

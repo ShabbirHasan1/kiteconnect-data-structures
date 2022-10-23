@@ -17,8 +17,11 @@ namespace TickerQuote
 
     public partial class TickerQuote
     {
-        [JsonProperty("average_traded_price", NullValueHandling = NullValueHandling.Ignore)]
-        public double? AverageTradedPrice { get; set; }
+        [JsonProperty("average_price", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AveragePrice { get; set; }
+
+        [JsonProperty("buy_quantity", NullValueHandling = NullValueHandling.Ignore)]
+        public long? BuyQuantity { get; set; }
 
         [JsonProperty("change", NullValueHandling = NullValueHandling.Ignore)]
         public double? Change { get; set; }
@@ -27,10 +30,10 @@ namespace TickerQuote
         public long? InstrumentToken { get; set; }
 
         [JsonProperty("last_price", NullValueHandling = NullValueHandling.Ignore)]
-        public long? LastPrice { get; set; }
+        public double? LastPrice { get; set; }
 
-        [JsonProperty("last_traded_quantity", NullValueHandling = NullValueHandling.Ignore)]
-        public long? LastTradedQuantity { get; set; }
+        [JsonProperty("last_quantity", NullValueHandling = NullValueHandling.Ignore)]
+        public long? LastQuantity { get; set; }
 
         [JsonProperty("mode", NullValueHandling = NullValueHandling.Ignore)]
         public string Mode { get; set; }
@@ -38,42 +41,39 @@ namespace TickerQuote
         [JsonProperty("ohlc", NullValueHandling = NullValueHandling.Ignore)]
         public Ohlc Ohlc { get; set; }
 
-        [JsonProperty("total_buy_quantity", NullValueHandling = NullValueHandling.Ignore)]
-        public long? TotalBuyQuantity { get; set; }
-
-        [JsonProperty("total_sell_quantity", NullValueHandling = NullValueHandling.Ignore)]
-        public long? TotalSellQuantity { get; set; }
+        [JsonProperty("sell_quantity", NullValueHandling = NullValueHandling.Ignore)]
+        public long? SellQuantity { get; set; }
 
         [JsonProperty("tradable", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Tradable { get; set; }
 
-        [JsonProperty("volume_traded", NullValueHandling = NullValueHandling.Ignore)]
-        public long? VolumeTraded { get; set; }
+        [JsonProperty("volume", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Volume { get; set; }
     }
 
     public partial class Ohlc
     {
         [JsonProperty("close", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Close { get; set; }
+        public double? Close { get; set; }
 
         [JsonProperty("high", NullValueHandling = NullValueHandling.Ignore)]
         public long? High { get; set; }
 
         [JsonProperty("low", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Low { get; set; }
+        public double? Low { get; set; }
 
         [JsonProperty("open", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Open { get; set; }
+        public double? Open { get; set; }
     }
 
     public partial class TickerQuote
     {
-        public static TickerQuote[] FromJson(string json) => JsonConvert.DeserializeObject<TickerQuote[]>(json, TickerQuote.Converter.Settings);
+        public static TickerQuote FromJson(string json) => JsonConvert.DeserializeObject<TickerQuote>(json, TickerQuote.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this TickerQuote[] self) => JsonConvert.SerializeObject(self, TickerQuote.Converter.Settings);
+        public static string ToJson(this TickerQuote self) => JsonConvert.SerializeObject(self, TickerQuote.Converter.Settings);
     }
 
     internal static class Converter

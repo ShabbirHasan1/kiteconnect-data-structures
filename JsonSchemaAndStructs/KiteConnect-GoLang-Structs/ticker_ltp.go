@@ -8,8 +8,6 @@ package TickerLtp
 
 import "encoding/json"
 
-type TickerLtp []TriggerRangeElement
-
 func UnmarshalTickerLtp(data []byte) (TickerLtp, error) {
 	var r TickerLtp
 	err := json.Unmarshal(data, &r)
@@ -20,9 +18,9 @@ func (r *TickerLtp) Marshal() ([]byte, error) {
 	return json.Marshal(r)
 }
 
-type TriggerRangeElement struct {
-	InstrumentToken *int64  `json:"instrument_token,omitempty"`
-	LastPrice       *int64  `json:"last_price,omitempty"`      
-	Mode            *string `json:"mode,omitempty"`            
-	Tradable        *bool   `json:"tradable,omitempty"`        
+type TickerLtp struct {
+	InstrumentToken *int64   `json:"instrument_token,omitempty"`
+	LastPrice       *float64 `json:"last_price,omitempty"`      
+	Mode            *string  `json:"mode,omitempty"`            
+	Tradable        *bool    `json:"tradable,omitempty"`        
 }

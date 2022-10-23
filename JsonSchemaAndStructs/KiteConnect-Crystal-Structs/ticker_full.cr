@@ -25,26 +25,24 @@
 
 require "json"
 
-alias TickerFull = Array(TriggerRangeElement)
-
-class TriggerRangeElement
+class TickerFull
   include JSON::Serializable
 
-  property average_traded_price : Float64?
+  property average_price : Float64?
+
+  property buy_quantity : Int32?
 
   property change : Float64?
 
   property depth : Depth?
 
-  property exchange_timestamp : String?
-
   property instrument_token : Int32?
 
-  property last_price : Int32?
+  property last_price : Float64?
+
+  property last_quantity : Int32?
 
   property last_trade_time : String?
-
-  property last_traded_quantity : Int32?
 
   property mode : String?
 
@@ -56,13 +54,13 @@ class TriggerRangeElement
 
   property oi_day_low : Int32?
 
-  property total_buy_quantity : Int32?
+  property sell_quantity : Int32?
 
-  property total_sell_quantity : Int32?
+  property timestamp : String?
 
   property tradable : Bool?
 
-  property volume_traded : Int32?
+  property volume : Int32?
 end
 
 class Depth
@@ -78,7 +76,7 @@ class Buy
 
   property orders : Int32?
 
-  property price : Int32?
+  property price : Float64?
 
   property quantity : Int32?
 end
@@ -86,11 +84,11 @@ end
 class Ohlc
   include JSON::Serializable
 
-  property close : Int32?
+  property close : Float64?
 
   property high : Int32?
 
-  property low : Int32?
+  property low : Float64?
 
-  property open : Int32?
+  property open : Float64?
 end

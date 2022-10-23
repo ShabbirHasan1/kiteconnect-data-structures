@@ -3,7 +3,6 @@
 
 module TickerFull
     ( TickerFull (..)
-    , TriggerRangeElement (..)
     , Depth (..)
     , Buy (..)
     , Ohlc (..)
@@ -17,26 +16,24 @@ import Data.HashMap.Strict (HashMap)
 import Data.Text (Text)
 import Data.Vector (Vector)
 
-type TickerFull = Vector TriggerRangeElement
-
-data TriggerRangeElement = TriggerRangeElement
-    { averageTradedPriceTriggerRangeElement :: Maybe Float
-    , changeTriggerRangeElement :: Maybe Float
-    , depthTriggerRangeElement :: Maybe Depth
-    , exchangeTimestampTriggerRangeElement :: Maybe Text
-    , instrumentTokenTriggerRangeElement :: Maybe Int
-    , lastPriceTriggerRangeElement :: Maybe Int
-    , lastTradeTimeTriggerRangeElement :: Maybe Text
-    , lastTradedQuantityTriggerRangeElement :: Maybe Int
-    , modeTriggerRangeElement :: Maybe Text
-    , ohlcTriggerRangeElement :: Maybe Ohlc
-    , oiTriggerRangeElement :: Maybe Int
-    , oiDayHighTriggerRangeElement :: Maybe Int
-    , oiDayLowTriggerRangeElement :: Maybe Int
-    , totalBuyQuantityTriggerRangeElement :: Maybe Int
-    , totalSellQuantityTriggerRangeElement :: Maybe Int
-    , tradableTriggerRangeElement :: Maybe Bool
-    , volumeTradedTriggerRangeElement :: Maybe Int
+data TickerFull = TickerFull
+    { averagePriceTickerFull :: Maybe Float
+    , buyQuantityTickerFull :: Maybe Int
+    , changeTickerFull :: Maybe Float
+    , depthTickerFull :: Maybe Depth
+    , instrumentTokenTickerFull :: Maybe Int
+    , lastPriceTickerFull :: Maybe Float
+    , lastQuantityTickerFull :: Maybe Int
+    , lastTradeTimeTickerFull :: Maybe Text
+    , modeTickerFull :: Maybe Text
+    , ohlcTickerFull :: Maybe Ohlc
+    , oiTickerFull :: Maybe Int
+    , oiDayHighTickerFull :: Maybe Int
+    , oiDayLowTickerFull :: Maybe Int
+    , sellQuantityTickerFull :: Maybe Int
+    , timestampTickerFull :: Maybe Text
+    , tradableTickerFull :: Maybe Bool
+    , volumeTickerFull :: Maybe Int
     } deriving (Show)
 
 data Depth = Depth
@@ -46,61 +43,61 @@ data Depth = Depth
 
 data Buy = Buy
     { ordersBuy :: Maybe Int
-    , priceBuy :: Maybe Int
+    , priceBuy :: Maybe Float
     , quantityBuy :: Maybe Int
     } deriving (Show)
 
 data Ohlc = Ohlc
-    { closeOhlc :: Maybe Int
+    { closeOhlc :: Maybe Float
     , highOhlc :: Maybe Int
-    , lowOhlc :: Maybe Int
-    , openOhlc :: Maybe Int
+    , lowOhlc :: Maybe Float
+    , openOhlc :: Maybe Float
     } deriving (Show)
 
 decodeTopLevel :: ByteString -> Maybe TickerFull
 decodeTopLevel = decode
 
-instance ToJSON TriggerRangeElement where
-    toJSON (TriggerRangeElement averageTradedPriceTriggerRangeElement changeTriggerRangeElement depthTriggerRangeElement exchangeTimestampTriggerRangeElement instrumentTokenTriggerRangeElement lastPriceTriggerRangeElement lastTradeTimeTriggerRangeElement lastTradedQuantityTriggerRangeElement modeTriggerRangeElement ohlcTriggerRangeElement oiTriggerRangeElement oiDayHighTriggerRangeElement oiDayLowTriggerRangeElement totalBuyQuantityTriggerRangeElement totalSellQuantityTriggerRangeElement tradableTriggerRangeElement volumeTradedTriggerRangeElement) =
+instance ToJSON TickerFull where
+    toJSON (TickerFull averagePriceTickerFull buyQuantityTickerFull changeTickerFull depthTickerFull instrumentTokenTickerFull lastPriceTickerFull lastQuantityTickerFull lastTradeTimeTickerFull modeTickerFull ohlcTickerFull oiTickerFull oiDayHighTickerFull oiDayLowTickerFull sellQuantityTickerFull timestampTickerFull tradableTickerFull volumeTickerFull) =
         object
-        [ "average_traded_price" .= averageTradedPriceTriggerRangeElement
-        , "change" .= changeTriggerRangeElement
-        , "depth" .= depthTriggerRangeElement
-        , "exchange_timestamp" .= exchangeTimestampTriggerRangeElement
-        , "instrument_token" .= instrumentTokenTriggerRangeElement
-        , "last_price" .= lastPriceTriggerRangeElement
-        , "last_trade_time" .= lastTradeTimeTriggerRangeElement
-        , "last_traded_quantity" .= lastTradedQuantityTriggerRangeElement
-        , "mode" .= modeTriggerRangeElement
-        , "ohlc" .= ohlcTriggerRangeElement
-        , "oi" .= oiTriggerRangeElement
-        , "oi_day_high" .= oiDayHighTriggerRangeElement
-        , "oi_day_low" .= oiDayLowTriggerRangeElement
-        , "total_buy_quantity" .= totalBuyQuantityTriggerRangeElement
-        , "total_sell_quantity" .= totalSellQuantityTriggerRangeElement
-        , "tradable" .= tradableTriggerRangeElement
-        , "volume_traded" .= volumeTradedTriggerRangeElement
+        [ "average_price" .= averagePriceTickerFull
+        , "buy_quantity" .= buyQuantityTickerFull
+        , "change" .= changeTickerFull
+        , "depth" .= depthTickerFull
+        , "instrument_token" .= instrumentTokenTickerFull
+        , "last_price" .= lastPriceTickerFull
+        , "last_quantity" .= lastQuantityTickerFull
+        , "last_trade_time" .= lastTradeTimeTickerFull
+        , "mode" .= modeTickerFull
+        , "ohlc" .= ohlcTickerFull
+        , "oi" .= oiTickerFull
+        , "oi_day_high" .= oiDayHighTickerFull
+        , "oi_day_low" .= oiDayLowTickerFull
+        , "sell_quantity" .= sellQuantityTickerFull
+        , "timestamp" .= timestampTickerFull
+        , "tradable" .= tradableTickerFull
+        , "volume" .= volumeTickerFull
         ]
 
-instance FromJSON TriggerRangeElement where
-    parseJSON (Object v) = TriggerRangeElement
-        <$> v .:? "average_traded_price"
+instance FromJSON TickerFull where
+    parseJSON (Object v) = TickerFull
+        <$> v .:? "average_price"
+        <*> v .:? "buy_quantity"
         <*> v .:? "change"
         <*> v .:? "depth"
-        <*> v .:? "exchange_timestamp"
         <*> v .:? "instrument_token"
         <*> v .:? "last_price"
+        <*> v .:? "last_quantity"
         <*> v .:? "last_trade_time"
-        <*> v .:? "last_traded_quantity"
         <*> v .:? "mode"
         <*> v .:? "ohlc"
         <*> v .:? "oi"
         <*> v .:? "oi_day_high"
         <*> v .:? "oi_day_low"
-        <*> v .:? "total_buy_quantity"
-        <*> v .:? "total_sell_quantity"
+        <*> v .:? "sell_quantity"
+        <*> v .:? "timestamp"
         <*> v .:? "tradable"
-        <*> v .:? "volume_traded"
+        <*> v .:? "volume"
 
 instance ToJSON Depth where
     toJSON (Depth buyDepth sellDepth) =

@@ -1,66 +1,63 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
-    "type": "array",
-    "items": {
-        "$ref": "#/definitions/TriggerRangeElement"
-    },
+    "$ref": "#/definitions/TickerQuote",
     "definitions": {
-        "TriggerRangeElement": {
+        "TickerQuote": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "tradable": {
-                    "type": "boolean"
-                },
                 "mode": {
                     "type": "string"
+                },
+                "tradable": {
+                    "type": "boolean"
                 },
                 "instrument_token": {
                     "type": "integer"
                 },
-                "volume_traded": {
-                    "type": "integer"
-                },
                 "last_price": {
-                    "type": "integer"
-                },
-                "average_traded_price": {
                     "type": "number"
                 },
-                "last_traded_quantity": {
+                "last_quantity": {
                     "type": "integer"
                 },
-                "total_buy_quantity": {
-                    "type": "integer"
-                },
-                "total_sell_quantity": {
-                    "type": "integer"
-                },
-                "change": {
+                "average_price": {
                     "type": "number"
+                },
+                "volume": {
+                    "type": "integer"
+                },
+                "buy_quantity": {
+                    "type": "integer"
+                },
+                "sell_quantity": {
+                    "type": "integer"
                 },
                 "ohlc": {
                     "$ref": "#/definitions/Ohlc"
+                },
+                "change": {
+                    "type": "number"
                 }
             },
             "required": [],
-            "title": "TriggerRangeElement"
+            "title": "TickerQuote"
         },
         "Ohlc": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "open": {
+                    "type": "number"
+                },
                 "high": {
                     "type": "integer"
                 },
-                "close": {
-                    "type": "integer"
-                },
-                "open": {
-                    "type": "integer"
-                },
                 "low": {
-                    "type": "integer"
+                    "type": "number"
+                },
+                "close": {
+                    "type": "number"
                 }
             },
             "required": [],

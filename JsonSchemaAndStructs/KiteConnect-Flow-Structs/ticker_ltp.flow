@@ -18,12 +18,12 @@ export type TickerLtp = {
 
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
-function toTickerLtp(json: string): TickerLtp[] {
-    return cast(JSON.parse(json), a(r("TickerLtp")));
+function toTickerLtp(json: string): TickerLtp {
+    return cast(JSON.parse(json), r("TickerLtp"));
 }
 
-function tickerLtpToJson(value: TickerLtp[]): string {
-    return JSON.stringify(uncast(value, a(r("TickerLtp"))), null, 2);
+function tickerLtpToJson(value: TickerLtp): string {
+    return JSON.stringify(uncast(value, r("TickerLtp")), null, 2);
 }
 
 function invalidValue(typ: any, val: any, key: any = '') {
@@ -161,7 +161,7 @@ function r(name: string) {
 const typeMap: any = {
     "TickerLtp": o([
         { json: "instrument_token", js: "instrumentToken", typ: u(undefined, 0) },
-        { json: "last_price", js: "lastPrice", typ: u(undefined, 0) },
+        { json: "last_price", js: "lastPrice", typ: u(undefined, 3.14) },
         { json: "mode", js: "mode", typ: u(undefined, "") },
         { json: "tradable", js: "tradable", typ: u(undefined, true) },
     ], false),

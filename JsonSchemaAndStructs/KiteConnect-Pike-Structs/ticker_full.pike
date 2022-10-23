@@ -12,76 +12,70 @@
 // and will likely throw an error, if the JSON string does not
 // match the expected interface, even if the JSON itself is valid.
 
-typedef array(TriggerRangeElement) TickerFull;
-
-TickerFull TickerFull_from_JSON(mixed json) {
-    return map(json, TriggerRangeElement_from_JSON);
-}
-
-class TriggerRangeElement {
-    float|mixed  average_traded_price; // json: "average_traded_price"
-    float|mixed  change;               // json: "change"
-    Depth|mixed  depth;                // json: "depth"
-    mixed|string exchange_timestamp;   // json: "exchange_timestamp"
-    int|mixed    instrument_token;     // json: "instrument_token"
-    int|mixed    last_price;           // json: "last_price"
-    mixed|string last_trade_time;      // json: "last_trade_time"
-    int|mixed    last_traded_quantity; // json: "last_traded_quantity"
-    mixed|string mode;                 // json: "mode"
-    Ohlc|mixed   ohlc;                 // json: "ohlc"
-    int|mixed    oi;                   // json: "oi"
-    int|mixed    oi_day_high;          // json: "oi_day_high"
-    int|mixed    oi_day_low;           // json: "oi_day_low"
-    int|mixed    total_buy_quantity;   // json: "total_buy_quantity"
-    int|mixed    total_sell_quantity;  // json: "total_sell_quantity"
-    bool|mixed   tradable;             // json: "tradable"
-    int|mixed    volume_traded;        // json: "volume_traded"
+class TickerFull {
+    float|mixed  average_price;    // json: "average_price"
+    int|mixed    buy_quantity;     // json: "buy_quantity"
+    float|mixed  change;           // json: "change"
+    Depth|mixed  depth;            // json: "depth"
+    int|mixed    instrument_token; // json: "instrument_token"
+    float|mixed  last_price;       // json: "last_price"
+    int|mixed    last_quantity;    // json: "last_quantity"
+    mixed|string last_trade_time;  // json: "last_trade_time"
+    mixed|string mode;             // json: "mode"
+    Ohlc|mixed   ohlc;             // json: "ohlc"
+    int|mixed    oi;               // json: "oi"
+    int|mixed    oi_day_high;      // json: "oi_day_high"
+    int|mixed    oi_day_low;       // json: "oi_day_low"
+    int|mixed    sell_quantity;    // json: "sell_quantity"
+    mixed|string timestamp;        // json: "timestamp"
+    bool|mixed   tradable;         // json: "tradable"
+    int|mixed    volume;           // json: "volume"
 
     string encode_json() {
         mapping(string:mixed) json = ([
-            "average_traded_price" : average_traded_price,
+            "average_price" : average_price,
+            "buy_quantity" : buy_quantity,
             "change" : change,
             "depth" : depth,
-            "exchange_timestamp" : exchange_timestamp,
             "instrument_token" : instrument_token,
             "last_price" : last_price,
+            "last_quantity" : last_quantity,
             "last_trade_time" : last_trade_time,
-            "last_traded_quantity" : last_traded_quantity,
             "mode" : mode,
             "ohlc" : ohlc,
             "oi" : oi,
             "oi_day_high" : oi_day_high,
             "oi_day_low" : oi_day_low,
-            "total_buy_quantity" : total_buy_quantity,
-            "total_sell_quantity" : total_sell_quantity,
+            "sell_quantity" : sell_quantity,
+            "timestamp" : timestamp,
             "tradable" : tradable,
-            "volume_traded" : volume_traded,
+            "volume" : volume,
         ]);
 
         return Standards.JSON.encode(json);
     }
 }
 
-TriggerRangeElement TriggerRangeElement_from_JSON(mixed json) {
-    TriggerRangeElement retval = TriggerRangeElement();
+TickerFull TickerFull_from_JSON(mixed json) {
+    TickerFull retval = TickerFull();
 
-    retval.average_traded_price = json["average_traded_price"];
+    retval.average_price = json["average_price"];
+    retval.buy_quantity = json["buy_quantity"];
     retval.change = json["change"];
     retval.depth = json["depth"];
-    retval.exchange_timestamp = json["exchange_timestamp"];
     retval.instrument_token = json["instrument_token"];
     retval.last_price = json["last_price"];
+    retval.last_quantity = json["last_quantity"];
     retval.last_trade_time = json["last_trade_time"];
-    retval.last_traded_quantity = json["last_traded_quantity"];
     retval.mode = json["mode"];
     retval.ohlc = json["ohlc"];
     retval.oi = json["oi"];
     retval.oi_day_high = json["oi_day_high"];
     retval.oi_day_low = json["oi_day_low"];
-    retval.total_buy_quantity = json["total_buy_quantity"];
-    retval.total_sell_quantity = json["total_sell_quantity"];
+    retval.sell_quantity = json["sell_quantity"];
+    retval.timestamp = json["timestamp"];
     retval.tradable = json["tradable"];
-    retval.volume_traded = json["volume_traded"];
+    retval.volume = json["volume"];
 
     return retval;
 }
@@ -110,9 +104,9 @@ Depth Depth_from_JSON(mixed json) {
 }
 
 class Buy {
-    int|mixed orders;   // json: "orders"
-    int|mixed price;    // json: "price"
-    int|mixed quantity; // json: "quantity"
+    int|mixed   orders;   // json: "orders"
+    float|mixed price;    // json: "price"
+    int|mixed   quantity; // json: "quantity"
 
     string encode_json() {
         mapping(string:mixed) json = ([
@@ -136,10 +130,10 @@ Buy Buy_from_JSON(mixed json) {
 }
 
 class Ohlc {
-    int|mixed close; // json: "close"
-    int|mixed high;  // json: "high"
-    int|mixed low;   // json: "low"
-    int|mixed open;  // json: "open"
+    float|mixed close; // json: "close"
+    int|mixed   high;  // json: "high"
+    float|mixed low;   // json: "low"
+    float|mixed open;  // json: "open"
 
     string encode_json() {
         mapping(string:mixed) json = ([

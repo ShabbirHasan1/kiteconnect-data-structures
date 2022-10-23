@@ -1,80 +1,79 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
-    "type": "array",
-    "items": {
-        "$ref": "#/definitions/TriggerRangeElement"
-    },
+    "$ref": "#/definitions/TickerFull",
     "definitions": {
-        "TriggerRangeElement": {
+        "TickerFull": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "instrument_token": {
-                    "type": "integer"
-                },
                 "mode": {
                     "type": "string"
                 },
-                "volume_traded": {
+                "tradable": {
+                    "type": "boolean"
+                },
+                "instrument_token": {
                     "type": "integer"
                 },
                 "last_price": {
-                    "type": "integer"
-                },
-                "average_traded_price": {
                     "type": "number"
                 },
-                "last_traded_quantity": {
+                "last_quantity": {
                     "type": "integer"
                 },
-                "total_buy_quantity": {
-                    "type": "integer"
-                },
-                "total_sell_quantity": {
-                    "type": "integer"
-                },
-                "change": {
+                "average_price": {
                     "type": "number"
                 },
-                "last_trade_time": {
-                    "type": "string"
-                },
-                "exchange_timestamp": {
-                    "type": "string"
-                },
-                "oi": {
+                "volume": {
                     "type": "integer"
                 },
-                "oi_day_low": {
+                "buy_quantity": {
                     "type": "integer"
                 },
-                "oi_day_high": {
+                "sell_quantity": {
                     "type": "integer"
                 },
                 "ohlc": {
                     "$ref": "#/definitions/Ohlc"
                 },
-                "tradable": {
-                    "type": "boolean"
+                "last_trade_time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "oi": {
+                    "type": "integer"
+                },
+                "oi_day_high": {
+                    "type": "integer"
+                },
+                "oi_day_low": {
+                    "type": "integer"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "change": {
+                    "type": "number"
                 },
                 "depth": {
                     "$ref": "#/definitions/Depth"
                 }
             },
             "required": [],
-            "title": "TriggerRangeElement"
+            "title": "TickerFull"
         },
         "Depth": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "sell": {
+                "buy": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Buy"
                     }
                 },
-                "buy": {
+                "sell": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Buy"
@@ -89,12 +88,12 @@
             "additionalProperties": false,
             "properties": {
                 "price": {
+                    "type": "number"
+                },
+                "quantity": {
                     "type": "integer"
                 },
                 "orders": {
-                    "type": "integer"
-                },
-                "quantity": {
                     "type": "integer"
                 }
             },
@@ -105,17 +104,17 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "open": {
+                    "type": "number"
+                },
                 "high": {
                     "type": "integer"
                 },
-                "close": {
-                    "type": "integer"
-                },
-                "open": {
-                    "type": "integer"
-                },
                 "low": {
-                    "type": "integer"
+                    "type": "number"
+                },
+                "close": {
+                    "type": "number"
                 }
             },
             "required": [],

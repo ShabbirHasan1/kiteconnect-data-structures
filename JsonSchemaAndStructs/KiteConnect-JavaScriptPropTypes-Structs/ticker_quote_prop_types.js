@@ -21,17 +21,17 @@ _Ohlc = PropTypes.shape({
     "open": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
 });
 _TickerQuote = PropTypes.shape({
-    "average_traded_price": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
+    "average_price": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
+    "buy_quantity": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
     "change": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
     "instrument_token": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
     "last_price": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
-    "last_traded_quantity": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
+    "last_quantity": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
     "mode": PropTypes.oneOfType([PropTypes.any, PropTypes.string]),
     "ohlc": PropTypes.oneOfType([_Ohlc, PropTypes.any]),
-    "total_buy_quantity": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
-    "total_sell_quantity": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
+    "sell_quantity": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
     "tradable": PropTypes.oneOfType([PropTypes.bool, PropTypes.any]),
-    "volume_traded": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
+    "volume": PropTypes.oneOfType([PropTypes.number, PropTypes.any]),
 });
 
-export const TickerQuote = PropTypes.arrayOf(_TickerQuote);
+export const TickerQuote = _TickerQuote;

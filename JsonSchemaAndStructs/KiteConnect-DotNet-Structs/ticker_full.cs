@@ -17,8 +17,11 @@ namespace TickerFull
 
     public partial class TickerFull
     {
-        [JsonProperty("average_traded_price", NullValueHandling = NullValueHandling.Ignore)]
-        public double? AverageTradedPrice { get; set; }
+        [JsonProperty("average_price", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AveragePrice { get; set; }
+
+        [JsonProperty("buy_quantity", NullValueHandling = NullValueHandling.Ignore)]
+        public long? BuyQuantity { get; set; }
 
         [JsonProperty("change", NullValueHandling = NullValueHandling.Ignore)]
         public double? Change { get; set; }
@@ -26,20 +29,17 @@ namespace TickerFull
         [JsonProperty("depth", NullValueHandling = NullValueHandling.Ignore)]
         public Depth Depth { get; set; }
 
-        [JsonProperty("exchange_timestamp", NullValueHandling = NullValueHandling.Ignore)]
-        public string ExchangeTimestamp { get; set; }
-
         [JsonProperty("instrument_token", NullValueHandling = NullValueHandling.Ignore)]
         public long? InstrumentToken { get; set; }
 
         [JsonProperty("last_price", NullValueHandling = NullValueHandling.Ignore)]
-        public long? LastPrice { get; set; }
+        public double? LastPrice { get; set; }
+
+        [JsonProperty("last_quantity", NullValueHandling = NullValueHandling.Ignore)]
+        public long? LastQuantity { get; set; }
 
         [JsonProperty("last_trade_time", NullValueHandling = NullValueHandling.Ignore)]
-        public string LastTradeTime { get; set; }
-
-        [JsonProperty("last_traded_quantity", NullValueHandling = NullValueHandling.Ignore)]
-        public long? LastTradedQuantity { get; set; }
+        public DateTimeOffset? LastTradeTime { get; set; }
 
         [JsonProperty("mode", NullValueHandling = NullValueHandling.Ignore)]
         public string Mode { get; set; }
@@ -56,17 +56,17 @@ namespace TickerFull
         [JsonProperty("oi_day_low", NullValueHandling = NullValueHandling.Ignore)]
         public long? OiDayLow { get; set; }
 
-        [JsonProperty("total_buy_quantity", NullValueHandling = NullValueHandling.Ignore)]
-        public long? TotalBuyQuantity { get; set; }
+        [JsonProperty("sell_quantity", NullValueHandling = NullValueHandling.Ignore)]
+        public long? SellQuantity { get; set; }
 
-        [JsonProperty("total_sell_quantity", NullValueHandling = NullValueHandling.Ignore)]
-        public long? TotalSellQuantity { get; set; }
+        [JsonProperty("timestamp", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? Timestamp { get; set; }
 
         [JsonProperty("tradable", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Tradable { get; set; }
 
-        [JsonProperty("volume_traded", NullValueHandling = NullValueHandling.Ignore)]
-        public long? VolumeTraded { get; set; }
+        [JsonProperty("volume", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Volume { get; set; }
     }
 
     public partial class Depth
@@ -84,7 +84,7 @@ namespace TickerFull
         public long? Orders { get; set; }
 
         [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Price { get; set; }
+        public double? Price { get; set; }
 
         [JsonProperty("quantity", NullValueHandling = NullValueHandling.Ignore)]
         public long? Quantity { get; set; }
@@ -93,26 +93,26 @@ namespace TickerFull
     public partial class Ohlc
     {
         [JsonProperty("close", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Close { get; set; }
+        public double? Close { get; set; }
 
         [JsonProperty("high", NullValueHandling = NullValueHandling.Ignore)]
         public long? High { get; set; }
 
         [JsonProperty("low", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Low { get; set; }
+        public double? Low { get; set; }
 
         [JsonProperty("open", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Open { get; set; }
+        public double? Open { get; set; }
     }
 
     public partial class TickerFull
     {
-        public static TickerFull[] FromJson(string json) => JsonConvert.DeserializeObject<TickerFull[]>(json, TickerFull.Converter.Settings);
+        public static TickerFull FromJson(string json) => JsonConvert.DeserializeObject<TickerFull>(json, TickerFull.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this TickerFull[] self) => JsonConvert.SerializeObject(self, TickerFull.Converter.Settings);
+        public static string ToJson(this TickerFull self) => JsonConvert.SerializeObject(self, TickerFull.Converter.Settings);
     }
 
     internal static class Converter

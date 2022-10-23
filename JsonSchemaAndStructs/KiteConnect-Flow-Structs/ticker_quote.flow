@@ -10,17 +10,17 @@
 // match the expected interface, even if the JSON is valid.
 
 export type TickerQuote = {
-    averageTradedPrice?: number;
-    change?:             number;
-    instrumentToken?:    number;
-    lastPrice?:          number;
-    lastTradedQuantity?: number;
-    mode?:               string;
-    ohlc?:               Ohlc;
-    totalBuyQuantity?:   number;
-    totalSellQuantity?:  number;
-    tradable?:           boolean;
-    volumeTraded?:       number;
+    averagePrice?:    number;
+    buyQuantity?:     number;
+    change?:          number;
+    instrumentToken?: number;
+    lastPrice?:       number;
+    lastQuantity?:    number;
+    mode?:            string;
+    ohlc?:            Ohlc;
+    sellQuantity?:    number;
+    tradable?:        boolean;
+    volume?:          number;
 };
 
 export type Ohlc = {
@@ -32,12 +32,12 @@ export type Ohlc = {
 
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
-function toTickerQuote(json: string): TickerQuote[] {
-    return cast(JSON.parse(json), a(r("TickerQuote")));
+function toTickerQuote(json: string): TickerQuote {
+    return cast(JSON.parse(json), r("TickerQuote"));
 }
 
-function tickerQuoteToJson(value: TickerQuote[]): string {
-    return JSON.stringify(uncast(value, a(r("TickerQuote"))), null, 2);
+function tickerQuoteToJson(value: TickerQuote): string {
+    return JSON.stringify(uncast(value, r("TickerQuote")), null, 2);
 }
 
 function invalidValue(typ: any, val: any, key: any = '') {
@@ -174,23 +174,23 @@ function r(name: string) {
 
 const typeMap: any = {
     "TickerQuote": o([
-        { json: "average_traded_price", js: "averageTradedPrice", typ: u(undefined, 3.14) },
+        { json: "average_price", js: "averagePrice", typ: u(undefined, 3.14) },
+        { json: "buy_quantity", js: "buyQuantity", typ: u(undefined, 0) },
         { json: "change", js: "change", typ: u(undefined, 3.14) },
         { json: "instrument_token", js: "instrumentToken", typ: u(undefined, 0) },
-        { json: "last_price", js: "lastPrice", typ: u(undefined, 0) },
-        { json: "last_traded_quantity", js: "lastTradedQuantity", typ: u(undefined, 0) },
+        { json: "last_price", js: "lastPrice", typ: u(undefined, 3.14) },
+        { json: "last_quantity", js: "lastQuantity", typ: u(undefined, 0) },
         { json: "mode", js: "mode", typ: u(undefined, "") },
         { json: "ohlc", js: "ohlc", typ: u(undefined, r("Ohlc")) },
-        { json: "total_buy_quantity", js: "totalBuyQuantity", typ: u(undefined, 0) },
-        { json: "total_sell_quantity", js: "totalSellQuantity", typ: u(undefined, 0) },
+        { json: "sell_quantity", js: "sellQuantity", typ: u(undefined, 0) },
         { json: "tradable", js: "tradable", typ: u(undefined, true) },
-        { json: "volume_traded", js: "volumeTraded", typ: u(undefined, 0) },
+        { json: "volume", js: "volume", typ: u(undefined, 0) },
     ], false),
     "Ohlc": o([
-        { json: "close", js: "close", typ: u(undefined, 0) },
+        { json: "close", js: "close", typ: u(undefined, 3.14) },
         { json: "high", js: "high", typ: u(undefined, 0) },
-        { json: "low", js: "low", typ: u(undefined, 0) },
-        { json: "open", js: "open", typ: u(undefined, 0) },
+        { json: "low", js: "low", typ: u(undefined, 3.14) },
+        { json: "open", js: "open", typ: u(undefined, 3.14) },
     ], false),
 };
 

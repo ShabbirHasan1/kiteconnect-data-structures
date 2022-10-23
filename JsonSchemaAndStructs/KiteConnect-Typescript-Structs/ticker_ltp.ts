@@ -1,6 +1,6 @@
 // To parse this data:
 //
-//   import { Convert } from "./file";
+//   import { Convert, TickerLtp } from "./file";
 //
 //   const tickerLtp = Convert.toTickerLtp(json);
 //
@@ -8,21 +8,21 @@
 // match the expected interface, even if the JSON is valid.
 
 export interface TickerLtp {
-    instrumentToken?: number;
-    lastPrice?:       number;
-    mode?:            string;
-    tradable?:        boolean;
+    instrumentToken ? : number;
+    lastPrice ? : number;
+    mode ? : string;
+    tradable ? : boolean;
 }
 
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
-    public static toTickerLtp(json: string): TickerLtp[] {
-        return cast(JSON.parse(json), a(r("TickerLtp")));
+    public static toTickerLtp(json: string): TickerLtp {
+        return cast(JSON.parse(json), r("TickerLtp"));
     }
 
-    public static tickerLtpToJson(value: TickerLtp[]): string {
-        return JSON.stringify(uncast(value, a(r("TickerLtp"))), null, 2);
+    public static tickerLtpToJson(value: TickerLtp): string {
+        return JSON.stringify(uncast(value, r("TickerLtp")), null, 2);
     }
 }
 
@@ -91,21 +91,25 @@ function transform(val: any, typ: any, getProps: any, key: any = ''): any {
         return d;
     }
 
-    function transformObject(props: { [k: string]: any }, additional: any, val: any): any {
+    function transformObject(props: {
+        [k: string]: any
+    }, additional: any, val: any): any {
         if (val === null || typeof val !== "object" || Array.isArray(val)) {
             return invalidValue("object", val);
         }
         const result: any = {};
-        Object.getOwnPropertyNames(props).forEach(key => {
-            const prop = props[key];
-            const v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
-            result[prop.key] = transform(v, prop.typ, getProps, prop.key);
-        });
-        Object.getOwnPropertyNames(val).forEach(key => {
-            if (!Object.prototype.hasOwnProperty.call(props, key)) {
-                result[key] = transform(val[key], additional, getProps, key);
-            }
-        });
+        Object.getOwnPropertyNames(props)
+            .forEach(key => {
+                const prop = props[key];
+                const v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
+                result[prop.key] = transform(v, prop.typ, getProps, prop.key);
+            });
+        Object.getOwnPropertyNames(val)
+            .forEach(key => {
+                if (!Object.prototype.hasOwnProperty.call(props, key)) {
+                    result[key] = transform(val[key], additional, getProps, key);
+                }
+            });
         return result;
     }
 
@@ -120,21 +124,21 @@ function transform(val: any, typ: any, getProps: any, key: any = ''): any {
     }
     if (Array.isArray(typ)) return transformEnum(typ, val);
     if (typeof typ === "object") {
-        return typ.hasOwnProperty("unionMembers") ? transformUnion(typ.unionMembers, val)
-            : typ.hasOwnProperty("arrayItems")    ? transformArray(typ.arrayItems, val)
-            : typ.hasOwnProperty("props")         ? transformObject(getProps(typ), typ.additional, val)
-            : invalidValue(typ, val);
+        return typ.hasOwnProperty("unionMembers") ? transformUnion(typ.unionMembers, val) :
+            typ.hasOwnProperty("arrayItems") ? transformArray(typ.arrayItems, val) :
+            typ.hasOwnProperty("props") ? transformObject(getProps(typ), typ.additional, val) :
+            invalidValue(typ, val);
     }
     // Numbers can be parsed by Date but shouldn't be.
     if (typ === Date && typeof val !== "number") return transformDate(val);
     return transformPrimitive(typ, val);
 }
 
-function cast<T>(val: any, typ: any): T {
+function cast < T > (val: any, typ: any): T {
     return transform(val, typ, jsonToJSProps);
 }
 
-function uncast<T>(val: T, typ: any): any {
+function uncast < T > (val: T, typ: any): any {
     return transform(val, typ, jsToJSONProps);
 }
 
@@ -161,7 +165,7 @@ function r(name: string) {
 const typeMap: any = {
     "TickerLtp": o([
         { json: "instrument_token", js: "instrumentToken", typ: u(undefined, 0) },
-        { json: "last_price", js: "lastPrice", typ: u(undefined, 0) },
+        { json: "last_price", js: "lastPrice", typ: u(undefined, 3.14) },
         { json: "mode", js: "mode", typ: u(undefined, "") },
         { json: "tradable", js: "tradable", typ: u(undefined, true) },
     ], false),

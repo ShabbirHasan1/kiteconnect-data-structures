@@ -15,7 +15,6 @@ module TickerLtp exposing
     ( TickerLtp
     , tickerLtpToString
     , tickerLtp
-    , TriggerRangeElement
     )
 
 import Json.Decode as Jdec
@@ -24,36 +23,31 @@ import Json.Encode as Jenc
 import Dict exposing (Dict, map, toList)
 import Array exposing (Array, map)
 
-type alias TickerLtp = Array TriggerRangeElement
-
-type alias TriggerRangeElement =
+type alias TickerLtp =
     { instrumentToken : Maybe Int
-    , lastPrice : Maybe Int
+    , lastPrice : Maybe Float
     , mode : Maybe String
     , tradable : Maybe Bool
     }
 
 -- decoders and encoders
 
-tickerLtp : Jdec.Decoder TickerLtp
-tickerLtp = Jdec.array triggerRangeElement
-
 tickerLtpToString : TickerLtp -> String
-tickerLtpToString r = Jenc.encode 0 (makeArrayEncoder encodeTriggerRangeElement r)
+tickerLtpToString r = Jenc.encode 0 (encodeTickerLtp r)
 
-triggerRangeElement : Jdec.Decoder TriggerRangeElement
-triggerRangeElement =
-    Jpipe.decode TriggerRangeElement
+tickerLtp : Jdec.Decoder TickerLtp
+tickerLtp =
+    Jpipe.decode TickerLtp
         |> Jpipe.optional "instrument_token" (Jdec.nullable Jdec.int) Nothing
-        |> Jpipe.optional "last_price" (Jdec.nullable Jdec.int) Nothing
+        |> Jpipe.optional "last_price" (Jdec.nullable Jdec.float) Nothing
         |> Jpipe.optional "mode" (Jdec.nullable Jdec.string) Nothing
         |> Jpipe.optional "tradable" (Jdec.nullable Jdec.bool) Nothing
 
-encodeTriggerRangeElement : TriggerRangeElement -> Jenc.Value
-encodeTriggerRangeElement x =
+encodeTickerLtp : TickerLtp -> Jenc.Value
+encodeTickerLtp x =
     Jenc.object
         [ ("instrument_token", makeNullableEncoder Jenc.int x.instrumentToken)
-        , ("last_price", makeNullableEncoder Jenc.int x.lastPrice)
+        , ("last_price", makeNullableEncoder Jenc.float x.lastPrice)
         , ("mode", makeNullableEncoder Jenc.string x.mode)
         , ("tradable", makeNullableEncoder Jenc.bool x.tradable)
         ]

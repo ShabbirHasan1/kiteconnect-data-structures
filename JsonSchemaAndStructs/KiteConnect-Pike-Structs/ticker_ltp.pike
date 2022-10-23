@@ -12,15 +12,9 @@
 // and will likely throw an error, if the JSON string does not
 // match the expected interface, even if the JSON itself is valid.
 
-typedef array(TriggerRangeElement) TickerLtp;
-
-TickerLtp TickerLtp_from_JSON(mixed json) {
-    return map(json, TriggerRangeElement_from_JSON);
-}
-
-class TriggerRangeElement {
+class TickerLtp {
     int|mixed    instrument_token; // json: "instrument_token"
-    int|mixed    last_price;       // json: "last_price"
+    float|mixed  last_price;       // json: "last_price"
     mixed|string mode;             // json: "mode"
     bool|mixed   tradable;         // json: "tradable"
 
@@ -36,8 +30,8 @@ class TriggerRangeElement {
     }
 }
 
-TriggerRangeElement TriggerRangeElement_from_JSON(mixed json) {
-    TriggerRangeElement retval = TriggerRangeElement();
+TickerLtp TickerLtp_from_JSON(mixed json) {
+    TickerLtp retval = TickerLtp();
 
     retval.instrument_token = json["instrument_token"];
     retval.last_price = json["last_price"];

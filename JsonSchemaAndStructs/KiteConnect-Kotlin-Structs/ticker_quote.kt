@@ -1,52 +1,50 @@
-// To parse the JSON, install kotlin's serialization plugin and do:
+// To parse the JSON, install Klaxon and do:
 //
-// val json        = Json(JsonConfiguration.Stable)
-// val tickerQuote = json.parse(TickerQuote.serializer(), jsonString)
+//   val tickerQuote = TickerQuote.fromJson(jsonString)
 
 package TickerQuote
 
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
-import kotlinx.serialization.descriptors.*
-import kotlinx.serialization.encoding.*
+import com.beust.klaxon.*
 
-typealias TickerQuote = JsonArray<TriggerRangeElement>
+private val klaxon = Klaxon()
 
-@Serializable
-data class TriggerRangeElement (
-    @SerialName("average_traded_price")
-    val averageTradedPrice: Double? = null,
+data class TickerQuote (
+    @Json(name = "average_price")
+    val averagePrice: Double? = null,
+
+    @Json(name = "buy_quantity")
+    val buyQuantity: Long? = null,
 
     val change: Double? = null,
 
-    @SerialName("instrument_token")
+    @Json(name = "instrument_token")
     val instrumentToken: Long? = null,
 
-    @SerialName("last_price")
-    val lastPrice: Long? = null,
+    @Json(name = "last_price")
+    val lastPrice: Double? = null,
 
-    @SerialName("last_traded_quantity")
-    val lastTradedQuantity: Long? = null,
+    @Json(name = "last_quantity")
+    val lastQuantity: Long? = null,
 
     val mode: String? = null,
     val ohlc: Ohlc? = null,
 
-    @SerialName("total_buy_quantity")
-    val totalBuyQuantity: Long? = null,
-
-    @SerialName("total_sell_quantity")
-    val totalSellQuantity: Long? = null,
+    @Json(name = "sell_quantity")
+    val sellQuantity: Long? = null,
 
     val tradable: Boolean? = null,
+    val volume: Long? = null
+) {
+    public fun toJson() = klaxon.toJsonString(this)
 
-    @SerialName("volume_traded")
-    val volumeTraded: Long? = null
-)
+    companion object {
+        public fun fromJson(json: String) = klaxon.parse<TickerQuote>(json)
+    }
+}
 
-@Serializable
 data class Ohlc (
-    val close: Long? = null,
+    val close: Double? = null,
     val high: Long? = null,
-    val low: Long? = null,
-    val open: Long? = null
+    val low: Double? = null,
+    val open: Double? = null
 )

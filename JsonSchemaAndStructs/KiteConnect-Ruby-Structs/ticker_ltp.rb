@@ -3,8 +3,8 @@
 #
 # To parse this JSON, add 'dry-struct' and 'dry-types' gems, then do:
 #
-#   ticker_ltp = TickerLtp.from_json! "[…]"
-#   puts ticker_ltp.first.instrument_token.even?
+#   ticker_ltp = TickerLtp.from_json! "{…}"
+#   puts ticker_ltp.instrument_token.even?
 #
 # If from_json! succeeds, the value returned matches the schema.
 
@@ -19,11 +19,12 @@ module Types
   Bool   = Strict::Bool
   Hash   = Strict::Hash
   String = Strict::String
+  Double = Strict::Float | Strict::Int
 end
 
-class TriggerRangeElement < Dry::Struct
+class TickerLtp < Dry::Struct
   attribute :instrument_token, Types::Int.optional
-  attribute :last_price,       Types::Int.optional
+  attribute :last_price,       Types::Double.optional
   attribute :mode,             Types::String.optional
   attribute :tradable,         Types::Bool.optional
 
@@ -52,15 +53,5 @@ class TriggerRangeElement < Dry::Struct
 
   def to_json(options = nil)
     JSON.generate(to_dynamic, options)
-  end
-end
-
-class TickerLtp
-  def self.from_json!(json)
-    ticker_ltp = JSON.parse(json, quirks_mode: true).map { |x| TriggerRangeElement.from_dynamic!(x) }
-    ticker_ltp.define_singleton_method(:to_json) do
-      JSON.generate(self.map { |x| x.to_dynamic })
-    end
-    ticker_ltp
   end
 end

@@ -1,6 +1,6 @@
 // To parse this data:
 //
-//   import { Convert } from "./file";
+//   import { Convert, TickerFull } from "./file";
 //
 //   const tickerFull = Convert.toTickerFull(json);
 //
@@ -8,52 +8,52 @@
 // match the expected interface, even if the JSON is valid.
 
 export interface TickerFull {
-    averageTradedPrice?: number;
-    change?:             number;
-    depth?:              Depth;
-    exchangeTimestamp?:  string;
-    instrumentToken?:    number;
-    lastPrice?:          number;
-    lastTradeTime?:      string;
-    lastTradedQuantity?: number;
-    mode?:               string;
-    ohlc?:               Ohlc;
-    oi?:                 number;
-    oiDayHigh?:          number;
-    oiDayLow?:           number;
-    totalBuyQuantity?:   number;
-    totalSellQuantity?:  number;
-    tradable?:           boolean;
-    volumeTraded?:       number;
+    averagePrice ? : number;
+    buyQuantity ? : number;
+    change ? : number;
+    depth ? : Depth;
+    instrumentToken ? : number;
+    lastPrice ? : number;
+    lastQuantity ? : number;
+    lastTradeTime ? : Date;
+    mode ? : string;
+    ohlc ? : Ohlc;
+    oi ? : number;
+    oiDayHigh ? : number;
+    oiDayLow ? : number;
+    sellQuantity ? : number;
+    timestamp ? : Date;
+    tradable ? : boolean;
+    volume ? : number;
 }
 
 export interface Depth {
-    buy?:  Buy[];
-    sell?: Buy[];
+    buy ? : Buy[];
+    sell ? : Buy[];
 }
 
 export interface Buy {
-    orders?:   number;
-    price?:    number;
-    quantity?: number;
+    orders ? : number;
+    price ? : number;
+    quantity ? : number;
 }
 
 export interface Ohlc {
-    close?: number;
-    high?:  number;
-    low?:   number;
-    open?:  number;
+    close ? : number;
+    high ? : number;
+    low ? : number;
+    open ? : number;
 }
 
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
-    public static toTickerFull(json: string): TickerFull[] {
-        return cast(JSON.parse(json), a(r("TickerFull")));
+    public static toTickerFull(json: string): TickerFull {
+        return cast(JSON.parse(json), r("TickerFull"));
     }
 
-    public static tickerFullToJson(value: TickerFull[]): string {
-        return JSON.stringify(uncast(value, a(r("TickerFull"))), null, 2);
+    public static tickerFullToJson(value: TickerFull): string {
+        return JSON.stringify(uncast(value, r("TickerFull")), null, 2);
     }
 }
 
@@ -122,21 +122,24 @@ function transform(val: any, typ: any, getProps: any, key: any = ''): any {
         return d;
     }
 
-    function transformObject(props: { [k: string]: any }, additional: any, val: any): any {
+    function transformObject(props: {
+        [k: string]: any }, additional: any, val: any): any {
         if (val === null || typeof val !== "object" || Array.isArray(val)) {
             return invalidValue("object", val);
         }
         const result: any = {};
-        Object.getOwnPropertyNames(props).forEach(key => {
-            const prop = props[key];
-            const v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
-            result[prop.key] = transform(v, prop.typ, getProps, prop.key);
-        });
-        Object.getOwnPropertyNames(val).forEach(key => {
-            if (!Object.prototype.hasOwnProperty.call(props, key)) {
-                result[key] = transform(val[key], additional, getProps, key);
-            }
-        });
+        Object.getOwnPropertyNames(props)
+            .forEach(key => {
+                const prop = props[key];
+                const v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
+                result[prop.key] = transform(v, prop.typ, getProps, prop.key);
+            });
+        Object.getOwnPropertyNames(val)
+            .forEach(key => {
+                if (!Object.prototype.hasOwnProperty.call(props, key)) {
+                    result[key] = transform(val[key], additional, getProps, key);
+                }
+            });
         return result;
     }
 
@@ -151,21 +154,21 @@ function transform(val: any, typ: any, getProps: any, key: any = ''): any {
     }
     if (Array.isArray(typ)) return transformEnum(typ, val);
     if (typeof typ === "object") {
-        return typ.hasOwnProperty("unionMembers") ? transformUnion(typ.unionMembers, val)
-            : typ.hasOwnProperty("arrayItems")    ? transformArray(typ.arrayItems, val)
-            : typ.hasOwnProperty("props")         ? transformObject(getProps(typ), typ.additional, val)
-            : invalidValue(typ, val);
+        return typ.hasOwnProperty("unionMembers") ? transformUnion(typ.unionMembers, val) :
+            typ.hasOwnProperty("arrayItems") ? transformArray(typ.arrayItems, val) :
+            typ.hasOwnProperty("props") ? transformObject(getProps(typ), typ.additional, val) :
+            invalidValue(typ, val);
     }
     // Numbers can be parsed by Date but shouldn't be.
     if (typ === Date && typeof val !== "number") return transformDate(val);
     return transformPrimitive(typ, val);
 }
 
-function cast<T>(val: any, typ: any): T {
+function cast < T > (val: any, typ: any): T {
     return transform(val, typ, jsonToJSProps);
 }
 
-function uncast<T>(val: T, typ: any): any {
+function uncast < T > (val: T, typ: any): any {
     return transform(val, typ, jsToJSONProps);
 }
 
@@ -191,23 +194,23 @@ function r(name: string) {
 
 const typeMap: any = {
     "TickerFull": o([
-        { json: "average_traded_price", js: "averageTradedPrice", typ: u(undefined, 3.14) },
+        { json: "average_price", js: "averagePrice", typ: u(undefined, 3.14) },
+        { json: "buy_quantity", js: "buyQuantity", typ: u(undefined, 0) },
         { json: "change", js: "change", typ: u(undefined, 3.14) },
         { json: "depth", js: "depth", typ: u(undefined, r("Depth")) },
-        { json: "exchange_timestamp", js: "exchangeTimestamp", typ: u(undefined, "") },
         { json: "instrument_token", js: "instrumentToken", typ: u(undefined, 0) },
-        { json: "last_price", js: "lastPrice", typ: u(undefined, 0) },
-        { json: "last_trade_time", js: "lastTradeTime", typ: u(undefined, "") },
-        { json: "last_traded_quantity", js: "lastTradedQuantity", typ: u(undefined, 0) },
+        { json: "last_price", js: "lastPrice", typ: u(undefined, 3.14) },
+        { json: "last_quantity", js: "lastQuantity", typ: u(undefined, 0) },
+        { json: "last_trade_time", js: "lastTradeTime", typ: u(undefined, Date) },
         { json: "mode", js: "mode", typ: u(undefined, "") },
         { json: "ohlc", js: "ohlc", typ: u(undefined, r("Ohlc")) },
         { json: "oi", js: "oi", typ: u(undefined, 0) },
         { json: "oi_day_high", js: "oiDayHigh", typ: u(undefined, 0) },
         { json: "oi_day_low", js: "oiDayLow", typ: u(undefined, 0) },
-        { json: "total_buy_quantity", js: "totalBuyQuantity", typ: u(undefined, 0) },
-        { json: "total_sell_quantity", js: "totalSellQuantity", typ: u(undefined, 0) },
+        { json: "sell_quantity", js: "sellQuantity", typ: u(undefined, 0) },
+        { json: "timestamp", js: "timestamp", typ: u(undefined, Date) },
         { json: "tradable", js: "tradable", typ: u(undefined, true) },
-        { json: "volume_traded", js: "volumeTraded", typ: u(undefined, 0) },
+        { json: "volume", js: "volume", typ: u(undefined, 0) },
     ], false),
     "Depth": o([
         { json: "buy", js: "buy", typ: u(undefined, a(r("Buy"))) },
@@ -215,13 +218,13 @@ const typeMap: any = {
     ], false),
     "Buy": o([
         { json: "orders", js: "orders", typ: u(undefined, 0) },
-        { json: "price", js: "price", typ: u(undefined, 0) },
+        { json: "price", js: "price", typ: u(undefined, 3.14) },
         { json: "quantity", js: "quantity", typ: u(undefined, 0) },
     ], false),
     "Ohlc": o([
-        { json: "close", js: "close", typ: u(undefined, 0) },
+        { json: "close", js: "close", typ: u(undefined, 3.14) },
         { json: "high", js: "high", typ: u(undefined, 0) },
-        { json: "low", js: "low", typ: u(undefined, 0) },
-        { json: "open", js: "open", typ: u(undefined, 0) },
+        { json: "low", js: "low", typ: u(undefined, 3.14) },
+        { json: "open", js: "open", typ: u(undefined, 3.14) },
     ], false),
 };

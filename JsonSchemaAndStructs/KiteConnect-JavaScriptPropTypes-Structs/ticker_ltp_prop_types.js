@@ -20,4 +20,4 @@ _TickerLtp = PropTypes.shape({
     "tradable": PropTypes.oneOfType([PropTypes.bool, PropTypes.any]),
 });
 
-export const TickerLtp = PropTypes.arrayOf(_TickerLtp);
+export const TickerLtp = _TickerLtp;

@@ -15,7 +15,6 @@ module TickerFull exposing
     ( TickerFull
     , tickerFullToString
     , tickerFull
-    , TriggerRangeElement
     , Depth
     , Buy
     , Ohlc
@@ -27,26 +26,24 @@ import Json.Encode as Jenc
 import Dict exposing (Dict, map, toList)
 import Array exposing (Array, map)
 
-type alias TickerFull = Array TriggerRangeElement
-
-type alias TriggerRangeElement =
-    { averageTradedPrice : Maybe Float
+type alias TickerFull =
+    { averagePrice : Maybe Float
+    , buyQuantity : Maybe Int
     , change : Maybe Float
     , depth : Maybe Depth
-    , exchangeTimestamp : Maybe String
     , instrumentToken : Maybe Int
-    , lastPrice : Maybe Int
+    , lastPrice : Maybe Float
+    , lastQuantity : Maybe Int
     , lastTradeTime : Maybe String
-    , lastTradedQuantity : Maybe Int
     , mode : Maybe String
     , ohlc : Maybe Ohlc
     , oi : Maybe Int
     , oiDayHigh : Maybe Int
     , oiDayLow : Maybe Int
-    , totalBuyQuantity : Maybe Int
-    , totalSellQuantity : Maybe Int
+    , sellQuantity : Maybe Int
+    , timestamp : Maybe String
     , tradable : Maybe Bool
-    , volumeTraded : Maybe Int
+    , volume : Maybe Int
     }
 
 type alias Depth =
@@ -56,66 +53,63 @@ type alias Depth =
 
 type alias Buy =
     { orders : Maybe Int
-    , price : Maybe Int
+    , price : Maybe Float
     , quantity : Maybe Int
     }
 
 type alias Ohlc =
-    { close : Maybe Int
+    { close : Maybe Float
     , high : Maybe Int
-    , low : Maybe Int
-    , open : Maybe Int
+    , low : Maybe Float
+    , open : Maybe Float
     }
 
 -- decoders and encoders
 
-tickerFull : Jdec.Decoder TickerFull
-tickerFull = Jdec.array triggerRangeElement
-
 tickerFullToString : TickerFull -> String
-tickerFullToString r = Jenc.encode 0 (makeArrayEncoder encodeTriggerRangeElement r)
+tickerFullToString r = Jenc.encode 0 (encodeTickerFull r)
 
-triggerRangeElement : Jdec.Decoder TriggerRangeElement
-triggerRangeElement =
-    Jpipe.decode TriggerRangeElement
-        |> Jpipe.optional "average_traded_price" (Jdec.nullable Jdec.float) Nothing
+tickerFull : Jdec.Decoder TickerFull
+tickerFull =
+    Jpipe.decode TickerFull
+        |> Jpipe.optional "average_price" (Jdec.nullable Jdec.float) Nothing
+        |> Jpipe.optional "buy_quantity" (Jdec.nullable Jdec.int) Nothing
         |> Jpipe.optional "change" (Jdec.nullable Jdec.float) Nothing
         |> Jpipe.optional "depth" (Jdec.nullable depth) Nothing
-        |> Jpipe.optional "exchange_timestamp" (Jdec.nullable Jdec.string) Nothing
         |> Jpipe.optional "instrument_token" (Jdec.nullable Jdec.int) Nothing
-        |> Jpipe.optional "last_price" (Jdec.nullable Jdec.int) Nothing
+        |> Jpipe.optional "last_price" (Jdec.nullable Jdec.float) Nothing
+        |> Jpipe.optional "last_quantity" (Jdec.nullable Jdec.int) Nothing
         |> Jpipe.optional "last_trade_time" (Jdec.nullable Jdec.string) Nothing
-        |> Jpipe.optional "last_traded_quantity" (Jdec.nullable Jdec.int) Nothing
         |> Jpipe.optional "mode" (Jdec.nullable Jdec.string) Nothing
         |> Jpipe.optional "ohlc" (Jdec.nullable ohlc) Nothing
         |> Jpipe.optional "oi" (Jdec.nullable Jdec.int) Nothing
         |> Jpipe.optional "oi_day_high" (Jdec.nullable Jdec.int) Nothing
         |> Jpipe.optional "oi_day_low" (Jdec.nullable Jdec.int) Nothing
-        |> Jpipe.optional "total_buy_quantity" (Jdec.nullable Jdec.int) Nothing
-        |> Jpipe.optional "total_sell_quantity" (Jdec.nullable Jdec.int) Nothing
+        |> Jpipe.optional "sell_quantity" (Jdec.nullable Jdec.int) Nothing
+        |> Jpipe.optional "timestamp" (Jdec.nullable Jdec.string) Nothing
         |> Jpipe.optional "tradable" (Jdec.nullable Jdec.bool) Nothing
-        |> Jpipe.optional "volume_traded" (Jdec.nullable Jdec.int) Nothing
+        |> Jpipe.optional "volume" (Jdec.nullable Jdec.int) Nothing
 
-encodeTriggerRangeElement : TriggerRangeElement -> Jenc.Value
-encodeTriggerRangeElement x =
+encodeTickerFull : TickerFull -> Jenc.Value
+encodeTickerFull x =
     Jenc.object
-        [ ("average_traded_price", makeNullableEncoder Jenc.float x.averageTradedPrice)
+        [ ("average_price", makeNullableEncoder Jenc.float x.averagePrice)
+        , ("buy_quantity", makeNullableEncoder Jenc.int x.buyQuantity)
         , ("change", makeNullableEncoder Jenc.float x.change)
         , ("depth", makeNullableEncoder encodeDepth x.depth)
-        , ("exchange_timestamp", makeNullableEncoder Jenc.string x.exchangeTimestamp)
         , ("instrument_token", makeNullableEncoder Jenc.int x.instrumentToken)
-        , ("last_price", makeNullableEncoder Jenc.int x.lastPrice)
+        , ("last_price", makeNullableEncoder Jenc.float x.lastPrice)
+        , ("last_quantity", makeNullableEncoder Jenc.int x.lastQuantity)
         , ("last_trade_time", makeNullableEncoder Jenc.string x.lastTradeTime)
-        , ("last_traded_quantity", makeNullableEncoder Jenc.int x.lastTradedQuantity)
         , ("mode", makeNullableEncoder Jenc.string x.mode)
         , ("ohlc", makeNullableEncoder encodeOhlc x.ohlc)
         , ("oi", makeNullableEncoder Jenc.int x.oi)
         , ("oi_day_high", makeNullableEncoder Jenc.int x.oiDayHigh)
         , ("oi_day_low", makeNullableEncoder Jenc.int x.oiDayLow)
-        , ("total_buy_quantity", makeNullableEncoder Jenc.int x.totalBuyQuantity)
-        , ("total_sell_quantity", makeNullableEncoder Jenc.int x.totalSellQuantity)
+        , ("sell_quantity", makeNullableEncoder Jenc.int x.sellQuantity)
+        , ("timestamp", makeNullableEncoder Jenc.string x.timestamp)
         , ("tradable", makeNullableEncoder Jenc.bool x.tradable)
-        , ("volume_traded", makeNullableEncoder Jenc.int x.volumeTraded)
+        , ("volume", makeNullableEncoder Jenc.int x.volume)
         ]
 
 depth : Jdec.Decoder Depth
@@ -135,32 +129,32 @@ buy : Jdec.Decoder Buy
 buy =
     Jpipe.decode Buy
         |> Jpipe.optional "orders" (Jdec.nullable Jdec.int) Nothing
-        |> Jpipe.optional "price" (Jdec.nullable Jdec.int) Nothing
+        |> Jpipe.optional "price" (Jdec.nullable Jdec.float) Nothing
         |> Jpipe.optional "quantity" (Jdec.nullable Jdec.int) Nothing
 
 encodeBuy : Buy -> Jenc.Value
 encodeBuy x =
     Jenc.object
         [ ("orders", makeNullableEncoder Jenc.int x.orders)
-        , ("price", makeNullableEncoder Jenc.int x.price)
+        , ("price", makeNullableEncoder Jenc.float x.price)
         , ("quantity", makeNullableEncoder Jenc.int x.quantity)
         ]
 
 ohlc : Jdec.Decoder Ohlc
 ohlc =
     Jpipe.decode Ohlc
-        |> Jpipe.optional "close" (Jdec.nullable Jdec.int) Nothing
+        |> Jpipe.optional "close" (Jdec.nullable Jdec.float) Nothing
         |> Jpipe.optional "high" (Jdec.nullable Jdec.int) Nothing
-        |> Jpipe.optional "low" (Jdec.nullable Jdec.int) Nothing
-        |> Jpipe.optional "open" (Jdec.nullable Jdec.int) Nothing
+        |> Jpipe.optional "low" (Jdec.nullable Jdec.float) Nothing
+        |> Jpipe.optional "open" (Jdec.nullable Jdec.float) Nothing
 
 encodeOhlc : Ohlc -> Jenc.Value
 encodeOhlc x =
     Jenc.object
-        [ ("close", makeNullableEncoder Jenc.int x.close)
+        [ ("close", makeNullableEncoder Jenc.float x.close)
         , ("high", makeNullableEncoder Jenc.int x.high)
-        , ("low", makeNullableEncoder Jenc.int x.low)
-        , ("open", makeNullableEncoder Jenc.int x.open)
+        , ("low", makeNullableEncoder Jenc.float x.low)
+        , ("open", makeNullableEncoder Jenc.float x.open)
         ]
 
 --- encoder helpers

@@ -1,25 +1,26 @@
-// To parse the JSON, install kotlin's serialization plugin and do:
+// To parse the JSON, install Klaxon and do:
 //
-// val json      = Json(JsonConfiguration.Stable)
-// val tickerLtp = json.parse(TickerLtp.serializer(), jsonString)
+//   val tickerLtp = TickerLtp.fromJson(jsonString)
 
 package TickerLtp
 
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
-import kotlinx.serialization.descriptors.*
-import kotlinx.serialization.encoding.*
+import com.beust.klaxon.*
 
-typealias TickerLtp = JsonArray<TriggerRangeElement>
+private val klaxon = Klaxon()
 
-@Serializable
-data class TriggerRangeElement (
-    @SerialName("instrument_token")
+data class TickerLtp (
+    @Json(name = "instrument_token")
     val instrumentToken: Long? = null,
 
-    @SerialName("last_price")
-    val lastPrice: Long? = null,
+    @Json(name = "last_price")
+    val lastPrice: Double? = null,
 
     val mode: String? = null,
     val tradable: Boolean? = null
-)
+) {
+    public fun toJson() = klaxon.toJsonString(this)
+
+    companion object {
+        public fun fromJson(json: String) = klaxon.parse<TickerLtp>(json)
+    }
+}

@@ -1,46 +1,42 @@
 // To parse this JSON:
 //
 //   NSError *error;
-//   TickerFull * = TickerFullFromJSON(json, NSUTF8Encoding, &error);
+//   TickerFull * = [TickerFull fromJSON:json encoding:NSUTF8Encoding error:&error];
 
 #import <Foundation/Foundation.h>
 
-@class TickerFullTriggerRangeElement;
+@class TickerFull;
 @class TickerFullDepth;
 @class TickerFullBuy;
 @class TickerFullOhlc;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSArray<TickerFullTriggerRangeElement *> TickerFull;
-
-#pragma mark - Top-level marshaling functions
-
-TickerFull *_Nullable TickerFullFromData(NSData *data, NSError **error);
-TickerFull *_Nullable TickerFullFromJSON(NSString *json, NSStringEncoding encoding, NSError **error);
-NSData     *_Nullable TickerFullToData(TickerFull *, NSError **error);
-NSString   *_Nullable TickerFullToJSON(TickerFull *, NSStringEncoding encoding, NSError **error);
-
 #pragma mark - Object interfaces
 
-@interface TickerFullTriggerRangeElement : NSObject
-@property (nonatomic, nullable, strong) NSNumber *averageTradedPrice;
+@interface TickerFull : NSObject
+@property (nonatomic, nullable, strong) NSNumber *averagePrice;
+@property (nonatomic, nullable, strong) NSNumber *buyQuantity;
 @property (nonatomic, nullable, strong) NSNumber *change;
 @property (nonatomic, nullable, strong) TickerFullDepth *depth;
-@property (nonatomic, nullable, copy)   NSString *exchangeTimestamp;
 @property (nonatomic, nullable, strong) NSNumber *instrumentToken;
 @property (nonatomic, nullable, strong) NSNumber *lastPrice;
+@property (nonatomic, nullable, strong) NSNumber *lastQuantity;
 @property (nonatomic, nullable, copy)   NSString *lastTradeTime;
-@property (nonatomic, nullable, strong) NSNumber *lastTradedQuantity;
 @property (nonatomic, nullable, copy)   NSString *mode;
 @property (nonatomic, nullable, strong) TickerFullOhlc *ohlc;
 @property (nonatomic, nullable, strong) NSNumber *oi;
 @property (nonatomic, nullable, strong) NSNumber *oiDayHigh;
 @property (nonatomic, nullable, strong) NSNumber *oiDayLow;
-@property (nonatomic, nullable, strong) NSNumber *totalBuyQuantity;
-@property (nonatomic, nullable, strong) NSNumber *totalSellQuantity;
+@property (nonatomic, nullable, strong) NSNumber *sellQuantity;
+@property (nonatomic, nullable, copy)   NSString *timestamp;
 @property (nonatomic, nullable, strong) NSNumber *tradable;
-@property (nonatomic, nullable, strong) NSNumber *volumeTraded;
+@property (nonatomic, nullable, strong) NSNumber *volume;
+
++ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
++ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error;
+- (NSString *_Nullable)toJSON:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
+- (NSData *_Nullable)toData:(NSError *_Nullable *)error;
 @end
 
 @interface TickerFullDepth : NSObject

@@ -25,14 +25,12 @@
 
 require "json"
 
-alias TickerLtp = Array(TriggerRangeElement)
-
-class TriggerRangeElement
+class TickerLtp
   include JSON::Serializable
 
   property instrument_token : Int32?
 
-  property last_price : Int32?
+  property last_price : Float64?
 
   property mode : String?
 

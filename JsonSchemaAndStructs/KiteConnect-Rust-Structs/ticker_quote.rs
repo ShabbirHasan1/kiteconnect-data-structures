@@ -13,27 +13,25 @@
 
 extern crate serde_derive;
 
-pub type TickerQuote = Vec<TriggerRangeElement>;
-
 #[derive(Debug, Serialize, Deserialize)]
-pub struct TriggerRangeElement {
-    pub average_traded_price: Option<f64>,
+pub struct TickerQuote {
+    pub average_price: Option<f64>,
+    pub buy_quantity: Option<i64>,
     pub change: Option<f64>,
     pub instrument_token: Option<i64>,
-    pub last_price: Option<i64>,
-    pub last_traded_quantity: Option<i64>,
+    pub last_price: Option<f64>,
+    pub last_quantity: Option<i64>,
     pub mode: Option<String>,
     pub ohlc: Option<Ohlc>,
-    pub total_buy_quantity: Option<i64>,
-    pub total_sell_quantity: Option<i64>,
+    pub sell_quantity: Option<i64>,
     pub tradable: Option<bool>,
-    pub volume_traded: Option<i64>,
+    pub volume: Option<i64>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Ohlc {
-    pub close: Option<i64>,
+    pub close: Option<f64>,
     pub high: Option<i64>,
-    pub low: Option<i64>,
-    pub open: Option<i64>,
+    pub low: Option<f64>,
+    pub open: Option<f64>,
 }

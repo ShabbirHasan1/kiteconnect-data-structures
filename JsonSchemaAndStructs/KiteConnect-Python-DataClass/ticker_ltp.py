@@ -7,7 +7,7 @@
 #     result = ticker_ltp_from_dict(json.loads(json_string))
 
 from dataclasses import dataclass
-from typing import Optional, Any, List, TypeVar, Callable, Type, cast
+from typing import Optional, Any, TypeVar, Type, cast
 
 
 T = TypeVar("T")
@@ -32,6 +32,11 @@ def from_union(fs, x):
     assert False
 
 
+def from_float(x: Any) -> float:
+    assert isinstance(x, (float, int)) and not isinstance(x, bool)
+    return float(x)
+
+
 def from_str(x: Any) -> str:
     assert isinstance(x, str)
     return x
@@ -42,9 +47,9 @@ def from_bool(x: Any) -> bool:
     return x
 
 
-def from_list(f: Callable[[Any], T], x: Any) -> List[T]:
-    assert isinstance(x, list)
-    return [f(y) for y in x]
+def to_float(x: Any) -> float:
+    assert isinstance(x, float)
+    return x
 
 
 def to_class(c: Type[T], x: Any) -> dict:
@@ -53,33 +58,33 @@ def to_class(c: Type[T], x: Any) -> dict:
 
 
 @dataclass(slots=True)
-class TriggerRangeElement:
+class TickerLtp:
     instrument_token: Optional[int] = None
-    last_price: Optional[int] = None
+    last_price: Optional[float] = None
     mode: Optional[str] = None
     tradable: Optional[bool] = None
 
     @staticmethod
-    def from_dict(obj: Any) -> 'TriggerRangeElement':
+    def from_dict(obj: Any) -> 'TickerLtp':
         assert isinstance(obj, dict)
         instrument_token = from_union([from_int, from_none], obj.get("instrument_token"))
-        last_price = from_union([from_int, from_none], obj.get("last_price"))
+        last_price = from_union([from_float, from_none], obj.get("last_price"))
         mode = from_union([from_str, from_none], obj.get("mode"))
         tradable = from_union([from_bool, from_none], obj.get("tradable"))
-        return TriggerRangeElement(instrument_token, last_price, mode, tradable)
+        return TickerLtp(instrument_token, last_price, mode, tradable)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["instrument_token"] = from_union([from_int, from_none], self.instrument_token)
-        result["last_price"] = from_union([from_int, from_none], self.last_price)
+        result["last_price"] = from_union([to_float, from_none], self.last_price)
         result["mode"] = from_union([from_str, from_none], self.mode)
         result["tradable"] = from_union([from_bool, from_none], self.tradable)
         return result
 
 
-def ticker_ltp_from_dict(s: Any) -> List[TriggerRangeElement]:
-    return from_list(TriggerRangeElement.from_dict, s)
+def ticker_ltp_from_dict(s: Any) -> TickerLtp:
+    return TickerLtp.from_dict(s)
 
 
-def ticker_ltp_to_dict(x: List[TriggerRangeElement]) -> Any:
-    return from_list(lambda x: to_class(TriggerRangeElement, x), x)
+def ticker_ltp_to_dict(x: TickerLtp) -> Any:
+    return to_class(TickerLtp, x)

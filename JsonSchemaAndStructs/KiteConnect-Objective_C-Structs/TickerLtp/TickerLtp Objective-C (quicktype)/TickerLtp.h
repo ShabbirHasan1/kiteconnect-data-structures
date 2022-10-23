@@ -1,30 +1,26 @@
 // To parse this JSON:
 //
 //   NSError *error;
-//   TickerLtp * = TickerLtpFromJSON(json, NSUTF8Encoding, &error);
+//   TickerLtp * = [TickerLtp fromJSON:json encoding:NSUTF8Encoding error:&error];
 
 #import <Foundation/Foundation.h>
 
-@class TickerLtpTriggerRangeElement;
+@class TickerLtp;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSArray<TickerLtpTriggerRangeElement *> TickerLtp;
-
-#pragma mark - Top-level marshaling functions
-
-TickerLtp *_Nullable TickerLtpFromData(NSData *data, NSError **error);
-TickerLtp *_Nullable TickerLtpFromJSON(NSString *json, NSStringEncoding encoding, NSError **error);
-NSData    *_Nullable TickerLtpToData(TickerLtp *, NSError **error);
-NSString  *_Nullable TickerLtpToJSON(TickerLtp *, NSStringEncoding encoding, NSError **error);
-
 #pragma mark - Object interfaces
 
-@interface TickerLtpTriggerRangeElement : NSObject
+@interface TickerLtp : NSObject
 @property (nonatomic, nullable, strong) NSNumber *instrumentToken;
 @property (nonatomic, nullable, strong) NSNumber *lastPrice;
 @property (nonatomic, nullable, copy)   NSString *mode;
 @property (nonatomic, nullable, strong) NSNumber *tradable;
+
++ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
++ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error;
+- (NSString *_Nullable)toJSON:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
+- (NSData *_Nullable)toData:(NSError *_Nullable *)error;
 @end
 
 NS_ASSUME_NONNULL_END

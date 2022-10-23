@@ -3,7 +3,6 @@
 
 module TickerQuote
     ( TickerQuote (..)
-    , TriggerRangeElement (..)
     , Ohlc (..)
     , decodeTopLevel
     ) where
@@ -15,61 +14,59 @@ import Data.HashMap.Strict (HashMap)
 import Data.Text (Text)
 import Data.Vector (Vector)
 
-type TickerQuote = Vector TriggerRangeElement
-
-data TriggerRangeElement = TriggerRangeElement
-    { averageTradedPriceTriggerRangeElement :: Maybe Float
-    , changeTriggerRangeElement :: Maybe Float
-    , instrumentTokenTriggerRangeElement :: Maybe Int
-    , lastPriceTriggerRangeElement :: Maybe Int
-    , lastTradedQuantityTriggerRangeElement :: Maybe Int
-    , modeTriggerRangeElement :: Maybe Text
-    , ohlcTriggerRangeElement :: Maybe Ohlc
-    , totalBuyQuantityTriggerRangeElement :: Maybe Int
-    , totalSellQuantityTriggerRangeElement :: Maybe Int
-    , tradableTriggerRangeElement :: Maybe Bool
-    , volumeTradedTriggerRangeElement :: Maybe Int
+data TickerQuote = TickerQuote
+    { averagePriceTickerQuote :: Maybe Float
+    , buyQuantityTickerQuote :: Maybe Int
+    , changeTickerQuote :: Maybe Float
+    , instrumentTokenTickerQuote :: Maybe Int
+    , lastPriceTickerQuote :: Maybe Float
+    , lastQuantityTickerQuote :: Maybe Int
+    , modeTickerQuote :: Maybe Text
+    , ohlcTickerQuote :: Maybe Ohlc
+    , sellQuantityTickerQuote :: Maybe Int
+    , tradableTickerQuote :: Maybe Bool
+    , volumeTickerQuote :: Maybe Int
     } deriving (Show)
 
 data Ohlc = Ohlc
-    { closeOhlc :: Maybe Int
+    { closeOhlc :: Maybe Float
     , highOhlc :: Maybe Int
-    , lowOhlc :: Maybe Int
-    , openOhlc :: Maybe Int
+    , lowOhlc :: Maybe Float
+    , openOhlc :: Maybe Float
     } deriving (Show)
 
 decodeTopLevel :: ByteString -> Maybe TickerQuote
 decodeTopLevel = decode
 
-instance ToJSON TriggerRangeElement where
-    toJSON (TriggerRangeElement averageTradedPriceTriggerRangeElement changeTriggerRangeElement instrumentTokenTriggerRangeElement lastPriceTriggerRangeElement lastTradedQuantityTriggerRangeElement modeTriggerRangeElement ohlcTriggerRangeElement totalBuyQuantityTriggerRangeElement totalSellQuantityTriggerRangeElement tradableTriggerRangeElement volumeTradedTriggerRangeElement) =
+instance ToJSON TickerQuote where
+    toJSON (TickerQuote averagePriceTickerQuote buyQuantityTickerQuote changeTickerQuote instrumentTokenTickerQuote lastPriceTickerQuote lastQuantityTickerQuote modeTickerQuote ohlcTickerQuote sellQuantityTickerQuote tradableTickerQuote volumeTickerQuote) =
         object
-        [ "average_traded_price" .= averageTradedPriceTriggerRangeElement
-        , "change" .= changeTriggerRangeElement
-        , "instrument_token" .= instrumentTokenTriggerRangeElement
-        , "last_price" .= lastPriceTriggerRangeElement
-        , "last_traded_quantity" .= lastTradedQuantityTriggerRangeElement
-        , "mode" .= modeTriggerRangeElement
-        , "ohlc" .= ohlcTriggerRangeElement
-        , "total_buy_quantity" .= totalBuyQuantityTriggerRangeElement
-        , "total_sell_quantity" .= totalSellQuantityTriggerRangeElement
-        , "tradable" .= tradableTriggerRangeElement
-        , "volume_traded" .= volumeTradedTriggerRangeElement
+        [ "average_price" .= averagePriceTickerQuote
+        , "buy_quantity" .= buyQuantityTickerQuote
+        , "change" .= changeTickerQuote
+        , "instrument_token" .= instrumentTokenTickerQuote
+        , "last_price" .= lastPriceTickerQuote
+        , "last_quantity" .= lastQuantityTickerQuote
+        , "mode" .= modeTickerQuote
+        , "ohlc" .= ohlcTickerQuote
+        , "sell_quantity" .= sellQuantityTickerQuote
+        , "tradable" .= tradableTickerQuote
+        , "volume" .= volumeTickerQuote
         ]
 
-instance FromJSON TriggerRangeElement where
-    parseJSON (Object v) = TriggerRangeElement
-        <$> v .:? "average_traded_price"
+instance FromJSON TickerQuote where
+    parseJSON (Object v) = TickerQuote
+        <$> v .:? "average_price"
+        <*> v .:? "buy_quantity"
         <*> v .:? "change"
         <*> v .:? "instrument_token"
         <*> v .:? "last_price"
-        <*> v .:? "last_traded_quantity"
+        <*> v .:? "last_quantity"
         <*> v .:? "mode"
         <*> v .:? "ohlc"
-        <*> v .:? "total_buy_quantity"
-        <*> v .:? "total_sell_quantity"
+        <*> v .:? "sell_quantity"
         <*> v .:? "tradable"
-        <*> v .:? "volume_traded"
+        <*> v .:? "volume"
 
 instance ToJSON Ohlc where
     toJSON (Ohlc closeOhlc highOhlc lowOhlc openOhlc) =

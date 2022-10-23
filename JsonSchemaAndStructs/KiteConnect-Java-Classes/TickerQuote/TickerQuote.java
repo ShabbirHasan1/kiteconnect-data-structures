@@ -3,22 +3,27 @@ package TickerQuote;
 import com.fasterxml.jackson.annotation.*;
 
 public class TickerQuote {
-    private Double averageTradedPrice;
+    private Double averagePrice;
+    private Long buyQuantity;
     private Double change;
     private Long instrumentToken;
-    private Long lastPrice;
-    private Long lastTradedQuantity;
+    private Double lastPrice;
+    private Long lastQuantity;
     private String mode;
     private Ohlc ohlc;
-    private Long totalBuyQuantity;
-    private Long totalSellQuantity;
+    private Long sellQuantity;
     private Boolean tradable;
-    private Long volumeTraded;
+    private Long volume;
 
-    @JsonProperty("average_traded_price")
-    public Double getAverageTradedPrice() { return averageTradedPrice; }
-    @JsonProperty("average_traded_price")
-    public void setAverageTradedPrice(Double value) { this.averageTradedPrice = value; }
+    @JsonProperty("average_price")
+    public Double getAveragePrice() { return averagePrice; }
+    @JsonProperty("average_price")
+    public void setAveragePrice(Double value) { this.averagePrice = value; }
+
+    @JsonProperty("buy_quantity")
+    public Long getBuyQuantity() { return buyQuantity; }
+    @JsonProperty("buy_quantity")
+    public void setBuyQuantity(Long value) { this.buyQuantity = value; }
 
     @JsonProperty("change")
     public Double getChange() { return change; }
@@ -31,14 +36,14 @@ public class TickerQuote {
     public void setInstrumentToken(Long value) { this.instrumentToken = value; }
 
     @JsonProperty("last_price")
-    public Long getLastPrice() { return lastPrice; }
+    public Double getLastPrice() { return lastPrice; }
     @JsonProperty("last_price")
-    public void setLastPrice(Long value) { this.lastPrice = value; }
+    public void setLastPrice(Double value) { this.lastPrice = value; }
 
-    @JsonProperty("last_traded_quantity")
-    public Long getLastTradedQuantity() { return lastTradedQuantity; }
-    @JsonProperty("last_traded_quantity")
-    public void setLastTradedQuantity(Long value) { this.lastTradedQuantity = value; }
+    @JsonProperty("last_quantity")
+    public Long getLastQuantity() { return lastQuantity; }
+    @JsonProperty("last_quantity")
+    public void setLastQuantity(Long value) { this.lastQuantity = value; }
 
     @JsonProperty("mode")
     public String getMode() { return mode; }
@@ -50,23 +55,18 @@ public class TickerQuote {
     @JsonProperty("ohlc")
     public void setOhlc(Ohlc value) { this.ohlc = value; }
 
-    @JsonProperty("total_buy_quantity")
-    public Long getTotalBuyQuantity() { return totalBuyQuantity; }
-    @JsonProperty("total_buy_quantity")
-    public void setTotalBuyQuantity(Long value) { this.totalBuyQuantity = value; }
-
-    @JsonProperty("total_sell_quantity")
-    public Long getTotalSellQuantity() { return totalSellQuantity; }
-    @JsonProperty("total_sell_quantity")
-    public void setTotalSellQuantity(Long value) { this.totalSellQuantity = value; }
+    @JsonProperty("sell_quantity")
+    public Long getSellQuantity() { return sellQuantity; }
+    @JsonProperty("sell_quantity")
+    public void setSellQuantity(Long value) { this.sellQuantity = value; }
 
     @JsonProperty("tradable")
     public Boolean getTradable() { return tradable; }
     @JsonProperty("tradable")
     public void setTradable(Boolean value) { this.tradable = value; }
 
-    @JsonProperty("volume_traded")
-    public Long getVolumeTraded() { return volumeTraded; }
-    @JsonProperty("volume_traded")
-    public void setVolumeTraded(Long value) { this.volumeTraded = value; }
+    @JsonProperty("volume")
+    public Long getVolume() { return volume; }
+    @JsonProperty("volume")
+    public void setVolume(Long value) { this.volume = value; }
 }

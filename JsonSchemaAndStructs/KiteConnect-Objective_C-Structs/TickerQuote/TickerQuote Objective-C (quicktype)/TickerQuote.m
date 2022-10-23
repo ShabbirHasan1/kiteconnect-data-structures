@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface TickerQuoteTriggerRangeElement (JSONConversion)
+@interface TickerQuote (JSONConversion)
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
@@ -22,25 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary *)JSONDictionary;
 @end
 
-static id map(id collection, id (^f)(id value)) {
-    id result = nil;
-    if ([collection isKindOfClass:NSArray.class]) {
-        result = [NSMutableArray arrayWithCapacity:[collection count]];
-        for (id x in collection) [result addObject:f(x)];
-    } else if ([collection isKindOfClass:NSDictionary.class]) {
-        result = [NSMutableDictionary dictionaryWithCapacity:[collection count]];
-        for (id key in collection) [result setObject:f([collection objectForKey:key]) forKey:key];
-    }
-    return result;
-}
-
 #pragma mark - JSON serialization
 
 TickerQuote *_Nullable TickerQuoteFromData(NSData *data, NSError **error)
 {
     @try {
         id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:error];
-        return *error ? nil : map(json, λ(id x, [TickerQuoteTriggerRangeElement fromJSONDictionary:x]));
+        return *error ? nil : [TickerQuote fromJSONDictionary:json];
     } @catch (NSException *exception) {
         *error = [NSError errorWithDomain:@"JSONSerialization" code:-1 userInfo:@{ @"exception": exception }];
         return nil;
@@ -55,7 +43,7 @@ TickerQuote *_Nullable TickerQuoteFromJSON(NSString *json, NSStringEncoding enco
 NSData *_Nullable TickerQuoteToData(TickerQuote *, NSError **error)
 {
     @try {
-        id json = map(, λ(id x, [x JSONDictionary]));
+        id json = [ JSONDictionary];
         NSData *data = [NSJSONSerialization dataWithJSONObject:json options:kNilOptions error:error];
         return *error ? nil : data;
     } @catch (NSException *exception) {
@@ -70,28 +58,38 @@ NSString *_Nullable TickerQuoteToJSON(TickerQuote *, NSStringEncoding encoding, 
     return data ? [[NSString alloc] initWithData:data encoding:encoding] : nil;
 }
 
-@implementation TickerQuoteTriggerRangeElement
+@implementation TickerQuote
 + (NSDictionary<NSString *, NSString *> *)properties
 {
     static NSDictionary<NSString *, NSString *> *properties;
     return properties = properties ? properties : @{
-        @"average_traded_price": @"averageTradedPrice",
+        @"average_price": @"averagePrice",
+        @"buy_quantity": @"buyQuantity",
         @"change": @"change",
         @"instrument_token": @"instrumentToken",
         @"last_price": @"lastPrice",
-        @"last_traded_quantity": @"lastTradedQuantity",
+        @"last_quantity": @"lastQuantity",
         @"mode": @"mode",
         @"ohlc": @"ohlc",
-        @"total_buy_quantity": @"totalBuyQuantity",
-        @"total_sell_quantity": @"totalSellQuantity",
+        @"sell_quantity": @"sellQuantity",
         @"tradable": @"tradable",
-        @"volume_traded": @"volumeTraded",
+        @"volume": @"volume",
     };
+}
+
++ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error
+{
+    return TickerQuoteFromData(data, error);
+}
+
++ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error
+{
+    return TickerQuoteFromJSON(json, encoding, error);
 }
 
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict
 {
-    return dict ? [[TickerQuoteTriggerRangeElement alloc] initWithJSONDictionary:dict] : nil;
+    return dict ? [[TickerQuote alloc] initWithJSONDictionary:dict] : nil;
 }
 
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
@@ -105,23 +103,23 @@ NSString *_Nullable TickerQuoteToJSON(TickerQuote *, NSStringEncoding encoding, 
 
 - (void)setValue:(nullable id)value forKey:(NSString *)key
 {
-    id resolved = TickerQuoteTriggerRangeElement.properties[key];
+    id resolved = TickerQuote.properties[key];
     if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (void)setNilValueForKey:(NSString *)key
 {
-    id resolved = TickerQuoteTriggerRangeElement.properties[key];
+    id resolved = TickerQuote.properties[key];
     if (resolved) [super setValue:@(0) forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
 {
-    id dict = [[self dictionaryWithValuesForKeys:TickerQuoteTriggerRangeElement.properties.allValues] mutableCopy];
+    id dict = [[self dictionaryWithValuesForKeys:TickerQuote.properties.allValues] mutableCopy];
 
     // Rewrite property names that differ in JSON
-    for (id jsonName in TickerQuoteTriggerRangeElement.properties) {
-        id propertyName = TickerQuoteTriggerRangeElement.properties[jsonName];
+    for (id jsonName in TickerQuote.properties) {
+        id propertyName = TickerQuote.properties[jsonName];
         if (![jsonName isEqualToString:propertyName]) {
             dict[jsonName] = dict[propertyName];
             [dict removeObjectForKey:propertyName];
@@ -134,6 +132,16 @@ NSString *_Nullable TickerQuoteToJSON(TickerQuote *, NSStringEncoding encoding, 
     }];
 
     return dict;
+}
+
+- (NSData *_Nullable)toData:(NSError *_Nullable *)error
+{
+    return TickerQuoteToData(self, error);
+}
+
+- (NSString *_Nullable)toJSON:(NSStringEncoding)encoding error:(NSError *_Nullable *)error
+{
+    return TickerQuoteToJSON(self, encoding, error);
 }
 @end
 

@@ -3,15 +3,15 @@ package TickerQuote;
 import com.fasterxml.jackson.annotation.*;
 
 public class Ohlc {
-    private Long close;
+    private Double close;
     private Long high;
-    private Long low;
-    private Long open;
+    private Double low;
+    private Double open;
 
     @JsonProperty("close")
-    public Long getClose() { return close; }
+    public Double getClose() { return close; }
     @JsonProperty("close")
-    public void setClose(Long value) { this.close = value; }
+    public void setClose(Double value) { this.close = value; }
 
     @JsonProperty("high")
     public Long getHigh() { return high; }
@@ -19,12 +19,12 @@ public class Ohlc {
     public void setHigh(Long value) { this.high = value; }
 
     @JsonProperty("low")
-    public Long getLow() { return low; }
+    public Double getLow() { return low; }
     @JsonProperty("low")
-    public void setLow(Long value) { this.low = value; }
+    public void setLow(Double value) { this.low = value; }
 
     @JsonProperty("open")
-    public Long getOpen() { return open; }
+    public Double getOpen() { return open; }
     @JsonProperty("open")
-    public void setOpen(Long value) { this.open = value; }
+    public void setOpen(Double value) { this.open = value; }
 }
