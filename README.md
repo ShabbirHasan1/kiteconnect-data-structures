@@ -9,7 +9,7 @@ Having a JSON schema from [kiteconnect-mocks](https://github.com/zerodha/kitecon
 
 In Context of the same, have generated and added the [JSON schema](https://github.com/ShabbirHasan1/kiteconnect-data-structures/tree/main/JsonSchemaAndStructs/KiteConnect-Json-Schema) from [kiteconnect-mocks](https://github.com/zerodha/kiteconnect-mocks) sample `.json` files and subsequently from the Json Schema, generated, [Some Languages Data Class / Structs / Class Object code](https://github.com/ShabbirHasan1/kiteconnect-data-structures/tree/main/JsonSchemaAndStructs) for serializing and deserializing the kiteconnect responses `.json`.
 
-Example for Python
+Example for Python ([gist](https://gist.github.com/ShabbirHasan1/f34137cc75cd7d8334b95193e409e234))
 
 ```python
 # To use this code, make sure you
