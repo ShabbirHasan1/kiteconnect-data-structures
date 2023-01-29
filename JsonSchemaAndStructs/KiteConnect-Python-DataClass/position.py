@@ -42,3 +42,25 @@ class Position:
 
     def is_option(self):
         return True if self.tradingsymbol.endswith(('PE', 'CE')) else False
+
+
+def TradingSymbolToMeta(tradingsymbol: str):
+    TRADINGSYMBOL_META = re.compile(
+        "(?P<instrument>[A-Z]+)(?P<datetime>[A-Z0-9]{5})(?P<type>[A-Z0-9]+)"
+    )
+    metadata = TRADINGSYMBOL_META.match(tradingsymbol)
+    if not metadata:
+        raise ValueError("Could not retrieve metadata for %s" % tradingsymbol)
+    else:
+        metadata_dict = metadata.groupdict()
+    if (
+        metadata_dict["type"].find("CE") != -1
+        or metadata_dict["type"].find("CE") != -1  # noqa: E501
+    ):  # noqa: E501
+        metadata_dict["option_price"] = float(
+            metadata_dict["type"].replace("CE", "").replace("PE", "")
+        )
+        metadata_dict["type"] = "OPT"
+    elif "FUT" in metadata_dict["type"]:
+        metadata_dict["type"] = "FUT"
+    return metadata_dict
